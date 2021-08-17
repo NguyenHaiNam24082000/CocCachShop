@@ -1,0 +1,503 @@
+﻿
+@{
+    ViewBag.Title = "Customer";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    List<string> listStyle = new List<string>();
+    listStyle.Add("~/Areas/Admin/Data/Styles/dataTables.bootstrap4.css");
+    List<string> listScript = new List<string>();
+    listScript.Add("~/Areas/Admin/Data/Scripts/jquery.dataTables.js");
+    listScript.Add("~/Areas/Admin/Data/Scripts/sparkline.js");
+    listScript.Add("~/Areas/Admin/Data/Scripts/datatable-basic.init.js");
+    ViewBag.Styles = listStyle;
+    ViewBag.Scripts = listScript;
+
+}
+<link href="~/Areas/Admin/Data/Styles/all.min.css" rel="stylesheet" />
+<style>
+    tbody > tr:hover {
+        background: linear-gradient(to right,#8971ea,#7f72ea,#7574ea,#6a75e9,#5f76e8) !important;
+        cursor: pointer;
+        color: white;
+    }
+
+
+
+    #voice:last-child {
+        margin: 0;
+    }
+
+
+
+    #voice:hover {
+        box-shadow: 0.4rem 0.4rem 0 #5f76e8;
+        transform: translate(-0.4rem, -0.4rem);
+    }
+
+
+
+    #voice:active {
+        box-shadow: 0 0 0 #5f76e8;
+        transform: translate(0, 0);
+    }
+
+
+
+    .push-modal, .push-modal-detail, .push-modal-input, .push-modal-delete, .push-modal-image {
+        /* display: none;*/
+        z-index: 500;
+        position: absolute;
+        max-width: 720px;
+        width: 96%;
+        height: 400px;
+        top: -1200px;
+        left: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0 19px 38px rgba(0,0,0,0.3), 0 15px 12px rgba(0,0,0,0.22);
+        background: #fff;
+        transition-delay: 150ms;
+        transition-property: top;
+        transition-duration: 750ms;
+        transition-timing-function: cubic-bezier(0.77, 0, 0.11, 0.97);
+        border-radius: 20px;
+    }
+
+
+
+    .push-modal-detail, .push-modal-input, .push-modal-delete {
+        height: auto !important;
+        z-index: 100000 !important;
+    }
+
+
+
+    .main {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        background: #fff;
+        transition-property: ALL;
+        transition-duration: 750ms;
+        transition-timing-function: cubic-bezier(0.77, 0, 0.11, 0.97);
+    }
+
+
+
+    .container-pushed {
+        width: 90%;
+        height: 80%;
+        margin: 10px auto;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 5px rgba(0,0,0,0.23);
+        border-radius: 20px;
+    }
+
+
+
+    .push-modal h3, .push-modal-detail h3, .push-modal-input h3, .push-modal-delete h3 {
+        font-size: 42px;
+        margin: 20px;
+        height: 70%;
+        align-content: center;
+        text-align: center;
+    }
+
+
+
+    .push-modal-active {
+        top: 10vh;
+    }
+
+
+
+    @@keyframes animate {
+        0% {
+            width: 10.9px;
+            height: 50px;
+        }
+
+
+
+        50% {
+            width: 10.9px;
+            height: 30px;
+        }
+
+
+
+        100% {
+            width: 10.9px;
+            height: 50px;
+        }
+    }
+
+
+
+
+
+    .detail {
+        margin: 25px;
+    }
+
+
+
+        .detail > div, .input > div {
+            padding: 20px;
+        }
+
+
+
+    .modal-delete {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+
+
+
+        .modal-delete button {
+            margin: 20px;
+        }
+
+
+
+    .detail > div span:nth-child(1), .input > div span:nth-child(1) {
+        display: inline-block;
+        width: 35%;
+    }
+
+
+
+    .detail > div span:nth-child(2), .input > div span:nth-child(2) {
+        display: inline-block;
+        width: 60%;
+    }
+
+
+
+    .input > div input {
+        width: 100%;
+        border-radius: 10px;
+        height: 50px;
+        padding-left: 20px;
+    }
+
+
+
+    .detail > div button, .input > div button, .push-modal-delete button {
+        border-radius: 20px;
+        width: 20%;
+        outline: none;
+        height: 50px;
+    }
+
+    #file-input {
+        width: 95%;
+        height: 300px;
+        border: 3px dashed black;
+        text-align: center;
+        margin: 20px;
+        cursor: pointer;
+        overflow-y: scroll;
+    }
+
+        #file-input i {
+            width: 50px;
+            height: auto;
+        }
+
+        #file-input img {
+            width: auto;
+            height: 135px;
+            margin: 10px 0;
+        }
+
+    .drop-here {
+        border: 3px solid black !important;
+    }
+</style>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-7 align-self-center">
+                @*<h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Basic Initialisation</h4>*@
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb m-0 p-0">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")" class="text-muted">Home</a></li>
+                            <li id="tiemnang" class="breadcrumb-item text-muted active" aria-current="page">Khách hàng tiềm năng</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <!-- basic table -->
+        <div class="push-modal-detail">
+            <div style="display: flex;justify-content: flex-end"><a class="close-detail" style="margin: 10px 20px;display: inline-block;width: 30px; height: 30px"><i class="fas fa-times" style="width: 100%;height: 100%;color: #4caf50;cursor: pointer"></i></a></div>
+            <h3 style="text-align: center">Thông tin Khách hàng</h3>
+            <div class="detail">
+                <div>
+                    <span style="">ID Khách : </span>
+                    <span><input type="text" id="MaNV" disabled /></span>
+                </div>
+                <div>
+                    <span>Username     : </span>
+                    <span><input type="text" id="username" /></span>
+                </div>
+                <div>
+                    <span>Password    : </span>
+                    <span><input type="text" id="pass" disabled /></span>
+                </div>
+                <div>
+                    <span>Họ tên  : </span>
+                    <span><input type="text" id="name" /></span>
+                </div>
+                <div>
+                    <span>Số điện thoại: </span>
+                    <span><input type="text" id="SDT" /></span>
+                </div>
+                <div>
+                    <span>Địa chỉ  : </span>
+                    <span><input type="text" id="adrr" /></span>
+                </div>
+
+                <div>
+                    <span>Email  : </span>
+                    <span><input type="text" id="email" /></span>
+                </div>
+                <div>
+                    <span>Giới tính  : </span>
+                    <span><input type="text" id="gioitinh" /></span>
+                </div>
+                <div>
+                    <button class="edit-button"><i class="fas fa-tools"></i> Lưu</button>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Danh sách khách hàng</h4>
+
+                        <div class="table-responsive">
+                            <table id="zero" class="table table-striped table-bordered no-wrap" style="">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Tên tài khoản</th>
+                                        <th>Họ tên</th>
+                                        <th>Mật Khẩu</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Email</th>
+                                        <th>Giới tính</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="kh">
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Tên tài khoản</th>
+                                        <th>Họ tên</th>
+                                        <th>Mật Khẩu</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Email</th>
+                                        <th>Giới tính</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Khách hàng tiềm năng</h4>
+
+                        <div class="table-responsive">
+                           
+
+                            <table id="one" class="table table-striped table-bordered no-wrap" style="">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+
+                                        <th>Họ tên</th>
+
+                                        <th>Số điện thoại</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Email</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody id="ab">
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Họ tên</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Email</th>
+
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+
+    </div>
+
+<script src="~/Areas/Admin/Data/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.table-responsive').find('input[type="search"]').after('  <a style="width: 25px; cursor: pointer" class="microphone"><img src ="/Images/microphone.svg" style="width: 25px;display: inline-block" class="icon-micro"/><img src ="/Images/radio-waves.svg" style="width: 25px;display: none" class="icon-wave"/></a>')
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        var speechRecognition = new SpeechRecognition();
+        speechRecognition.lang = 'vi-VI';
+        speechRecognition.continuous = false;
+        //document.querySelector('.microphone').addEventListener('click', function (e) {
+        //    e.preventDefault();
+        //    $('.table-responsive').find('.icon-wave').css('display', 'inline-block');
+        //    $('.table-responsive').find('.icon-micro').css('display', 'none');
+        //    speechRecognition.start();
+        //});
+        const handleVoice = (text) => {
+            $('.table-responsive').find('input[type="search"]').val(text);
+            console.log(text);
+        }
+        speechRecognition.onspeechend = () => {
+            speechRecognition.stop();
+            $('.table-responsive').find('.icon-wave').css('display', 'none');
+            $('.table-responsive').find('.icon-micro').css('display', 'inline-block');
+        }
+        speechRecognition.onerror = (err) => {
+            console.error(err);
+        }
+        speechRecognition.onresult = (e) => {
+            console.log('result', e);
+            const text = e.results[0][0].transcript;
+            handleVoice(text);
+        }
+
+        $.ajax({
+            url: 'https://localhost:44375/api/getallkh',
+            method: 'GET',
+            contentType: 'application/json',// dữ liệu trả về dưới dạng Json
+            success: function (rs) {
+                $('#kh').empty()
+
+                for (var i = 0; i < rs.length; ++i) {
+
+                    $('#kh').append(`<tr data-id="${rs[i].IDKhach}" data-username="${rs[i].Username}"  data-hoten="${rs[i].HoTen}"  data-pass="${rs[i].Password}"  data-sdt="${rs[i].SDT}"  data-adr="${rs[i].DiaChi}" data-email="${rs[i].Email}" data-gt="${rs[i].GioiTinh}">
+                                        <td>${rs[i].IDKhach}</td>
+                                        <td>${rs[i].Username}</td>
+                                        <td>${rs[i].HoTen}</td>
+                                        <td>${rs[i].Password}</td>
+                                        <td>${rs[i].SDT}</td>
+                                        <td>${rs[i].DiaChi}</td>
+                                        <td>${rs[i].Email}</td>
+                                       <td>${rs[i].GioiTinh}</td>
+                                    </tr>`)
+
+                }
+
+                $('tr').click(function () {
+                    console.log($(this).data().id)
+                    $('.push-modal-detail').toggleClass('push-modal-active');
+                    $('.detail > div').eq(0).find('input').val($(this).data().id)
+                    $('.detail > div').eq(1).find('input').val($(this).data().username)
+                    $('.detail > div').eq(2).find('input').val($(this).data().pass)
+                    $('.detail > div').eq(3).find('input').val($(this).data().hoten)
+                    $('.detail > div').eq(4).find('input').val($(this).data().sdt)
+                    $('.detail > div').eq(5).find('input').val($(this).data().adr)
+                    $('.detail > div').eq(6).find('input').val($(this).data().email)
+                    $('.detail > div').eq(7).find('input').val($(this).data().gt)
+
+
+
+
+                    //============Nút Sửa===========//
+                    $('.edit-button').click(function () {
+                        const linksua = `https://localhost:44375/api/putkh/?id=${$('.detail > div').eq(0).find('input').val()}&username=${$('.detail > div').eq(1).find('input').val()}&password=${$('.detail > div').eq(2).find('input').val()}&hoten=${$('.detail > div').eq(3).find('input').val()}&sdt=${$('.detail > div').eq(4).find('input').val()}&adrr=${$('.detail > div').eq(5).find('input').val()}&email=${$('.detail > div').eq(6).find('input').val()}&gioitinh=${$('.detail > div').eq(7).find('input').val()}`
+                        $.ajax({
+                            url: linksua,
+                            method: "PUT",//dùng phương thức put
+                            contentType: "application/json",// dữ liệu trả về dưới dạng Json
+                            success: function (rs) {
+                                console.log(linksua)
+                                window.location.href = "https://localhost:44375/Admin/Customer"
+                            }
+
+                        })
+                    })
+                })
+
+            }
+        })
+
+       
+            $.ajax({
+                url: 'https://localhost:44375/api/gettn',
+                method: 'GET',
+                contentType: 'application/json',// dữ liệu trả về dưới dạng Json
+                success: function (rs) {
+                    console.log("true")
+                   
+
+                    let data = [];
+                    for (var i = 0; i < rs.length; ++i) {
+
+                        data.push(rs[i])
+                        for (var j = i + 1; j < rs.length; ++j) {
+                            if (rs[i].IDKhach == rs[j].IDKhach) {
+
+                                data[i].TongTien += rs[j].TongTien
+                                rs.splice(j, 1)
+                                j--;
+                            }
+
+                        }
+                    }
+                    console.log(data)
+
+                    data.sort(function (a, b) {
+                        return b.TongTien - a.TongTien
+                    }).forEach(item => {
+                       
+                        $('#ab').append(`<tr>
+                                        <td> ${item.IDKhach} </td>
+                                        <td>${item.HoTen}</td>
+                                        <td>${item.SDT} </td>
+<td>${item.TongTien}</td>
+                                        <td> ${item.DiaChi} </td>
+                                        <td> ${item.Email} </td> </tr>`)
+                    })
+                }
+            })
+
+
+        
+
+    })
+</script>

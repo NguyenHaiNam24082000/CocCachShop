@@ -1,0 +1,263 @@
+﻿
+@{
+    ViewBag.Title = "EditProducts";
+    Layout = null;
+}
+
+<html>
+
+<head>
+
+    <title>Drag and Drop</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    <style>
+
+        body {
+            background: rgb(255, 246, 231);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto Slab', serif;
+        }
+
+        .dd-vc {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .dd-transition {
+            transition: all 0.3s ease;
+        }
+
+        .dd-shadow {
+            box-shadow: 0 0 3px 1px rgba(0,0,0,0.3);
+        }
+
+        #dragDrop {
+            width: 90vw;
+            margin: 20px auto 0;
+            position: relative;
+            height: 85vh;
+            outline: 2px dashed rgba(54, 86, 132, 0.75);
+            cursor: pointer;
+        }
+
+        .dd-slot {
+            float: left;
+            outline: 2px dashed rgba(54, 86, 132, 0.75);
+            outline-offset: -15px;
+            position: relative;
+            pointer-events: none;
+        }
+
+        .dd-slot-num {
+            text-align: center;
+            color: rgba(0,0,0,0.1);
+            font-size: 40px;
+            position: absolute;
+            width: 100%;
+        }
+
+        .dd-item {
+            position: absolute;
+            left: 0;
+            top: 0;
+            box-sizing: border-box;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+            .dd-item.dd-disabled {
+                pointer-events: none;
+                opacity: 0;
+            }
+
+            .dd-item.dd-selected {
+                z-index: 20;
+            }
+
+        .dd-item-inner {
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .dd-item-panel {
+            width: 80%;
+            height: 35px;
+            background: #fff;
+            position: absolute;
+            left: 10%;
+            bottom: -15px;
+            z-index: 5;
+        }
+
+        .dd-item-title {
+            font-size: 15px;
+            color: #365684;
+            text-align: center;
+            line-height: 35px;
+        }
+
+        .drop-here {
+            outline: 2px solid rgba(54, 86, 132, 0.75);
+        }
+    </style>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/Areas/Admin/Data/Scripts/image.js"></script>
+
+</head>
+
+<body>
+    <h3 style="text-align: center" class="imageofproduct"></h3>
+    <div style="text-align: center">Kéo thả hoặc nhấn để tải lên</div>
+    <div id="dragDrop"></div>
+    <div style="display: none;justify-content: center" class="upload">
+        <button style="margin: 10px;" id="upload">Tải ảnh</button>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-storage.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyBDHK8z_EAbS7b9yOrQrXj9wBSEDGcOsjo",
+            authDomain: "coccachshop-25db4.firebaseapp.com",
+            projectId: "coccachshop-25db4",
+            storageBucket: "coccachshop-25db4.appspot.com",
+            messagingSenderId: "409723115626",
+            appId: "1:409723115626:web:151d7dc6ee3d61a7fa9213"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const masp = window.location.href.split('=')[1].split('&')[0];
+        const query = window.location.href.split('=')[2];
+        $('.imageofproduct').text("Ảnh của sản phẩm " + masp)
+        if (query == 'upload') {
+            $('.upload').css('display', 'flex')
+        }
+        else {
+            $('.upload').css('display', 'none')
+            $.ajax({
+                url: "/api/Anh/?MaSP=" + masp,
+                method: "GET",
+                contentType: "application/json",
+                
+                success: function (reponse) {
+                    console.log(reponse)
+                    $('#dragDrop').empty();
+                    reponse.forEach(item => {
+                        let imgTag = `<img style="width: 30%;margin: 10px;" src="${item.link}">`
+
+                        $('#dragDrop').append(imgTag)
+                    })
+                    
+                    //window.location.href = "/Admin/Home/Products"
+                }
+            })
+        }
+        const dropArea = document.querySelector("#dragDrop")
+        dropArea.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            dropArea.classList.add('drop-here');
+
+        })
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.classList.remove('drop-here');
+
+        })
+        let file
+        let array = []
+        let arrayURL = []
+        let firstDrop = true
+        let files
+        dropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            file = e.dataTransfer.files[0];
+            arrayURL.push(file)
+            console.log(file.name)
+            let time = new Date().valueOf()
+            array.push(time + "-" + file.name)
+            console.log(new Date().valueOf())
+            let fileType = file.type;
+            console.log(fileType)
+            let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
+            if (validExtensions.includes(fileType)) {
+                let fileReader = new FileReader();
+                fileReader.onload = () => {
+                    let fileURL = fileReader.result;
+                    let imgTag = `<img style="width: 30%;margin: 10px;" src="${fileURL}">`
+
+                    $('#dragDrop').append(imgTag)
+                }
+                fileReader.readAsDataURL(file)
+            }
+        })
+        $('#upload').click(function () {
+            var len = array.length
+            $.getJSON("/api/sanpham/?MaSP=" + masp, function (data) {
+                // JSON result in `data` variable
+                console.log(data)
+                if (data == null) {
+                    let item = {
+                        "MaSP": masp,
+                        "TenSP": null,
+                        "Gia": null,
+                        "KhuyenMai": null,
+                        "MaLoai": null,
+                        "SoLuong": null,
+                    }
+
+                    $.ajax({
+                        url: "/api/products/post/item",
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(item),
+                        dataType: 'json',
+                        success: function (reponse) {
+                            console.log(reponse)
+                        }
+                    })
+                }
+                })
+            for (var i = 0; i < len; ++i) {
+                var uploadTask = firebase.storage().ref("Images/" + array[i]).put(arrayURL[i])
+                uploadTask.on('state_changed', function (snapshot) {
+
+                })
+                let data = {
+                    "MaAnh": `${masp}${i}`,
+                    "MaSP": masp,
+                    "link": "https://firebasestorage.googleapis.com/v0/b/coccachshop-25db4.appspot.com/o/Images%2F"+array[i]+"?alt=media",
+                };
+                console.log(data)
+                $.ajax({
+                    url: "/api/Anh/post",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    dataType: "json",
+                    success: function (reponse) {
+                        console.log(reponse)
+                        //window.location.href = "/Admin/Home/Products"
+                    }
+                })
+            }
+        })
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,694 @@
+﻿@model CocCachShop.Models.tDanhMucSP
+@{
+    ViewBag.Title = "ChiTietSanPham";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Areas/Admin/Data/Scripts/jquery.min.js"></script>
+<section class="bread-crumb clearfix">
+    <span class="crumb-border"></span><div class="container">
+        <div class="row">
+            <div class="col-xs-12 a-left">
+                <ul class="breadcrumb">
+                    <li class="home">
+                        <a href="/"><span>Trang chủ</span></a>
+                        <span class="mr_lr"> <i class="fa fa-angle-right"></i> </span>
+                    </li>
+                    <li>
+                        <a href="/ao-so-mi-pc68138.html"><span>ÁO</span></a>
+                        <span class="mr_lr"> <i class="fa fa-angle-right"></i> </span>
+                    </li>
+                    <li><strong><span>@Model.TenSP</span></strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="product margin-top-40 tp_product_detail">
+    <div class="container bg_white">
+        <div class="row row_product">
+            <div id="sidebar_product" class="col-lg-3 col-md-3 col-sm-12 col-xs-12 sidebar_product_details">
+                <aside class="aside-item collection-category">
+                    <div class="title_module title_background tp_button">
+                        <h2>
+                            <span>Danh mục</span>
+                            <span class="ti ti-align-right"></span>
+                        </h2>
+                    </div><div class="aside-content aside-cate-link-cls">
+                        <nav class="cate_padding nav-category navbar-toggleable-md">
+                            <ul class="nav-ul nav navbar-pills">
+                                <li class="nav-item lv1">
+                                    <a href="/ao-pc68136.html" class="nav-link">ÁO</a>
+                                    <i class="fa fa-angle-down"></i><ul class="dropdown-menu">
+                                        <li class=" nav-item lv2 ">
+                                            <a class="nav-link" href="ÁO SƠ MI">ÁO SƠ MI</a>
+                                        </li>
+                                        <li class=" nav-item lv2 ">
+                                            <a class="nav-link" href="ÁO TANKTOP">ÁO TANKTOP</a>
+                                        </li>
+                                        <li class=" nav-item lv2 ">
+                                            <a class="nav-link" href="ÁO LEN">ÁO LEN</a>
+                                        </li>
+                                        <li class=" nav-item lv2 ">
+                                            <a class="nav-link" href="ÁO PHÔNG SS'21">ÁO PHÔNG SS'21</a>
+                                        </li>
+                                        <li class=" nav-item lv2 ">
+                                            <a class="nav-link" href="ÁO NỈ 2020">ÁO NỈ 2020</a>
+                                        </li>
+                                        <li class=" nav-item lv2 ">
+                                            <a class="nav-link" href="ÁO KHOÁC 2020">ÁO KHOÁC 2020</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item lv1">
+                                    <a href="/quan-pc68132.html" class="nav-link">QUẦN</a>
+                                    <i class="fa fa-angle-down"></i><ul class="dropdown-menu">
+                                        <li class=" nav-item lv2 ">
+                                            <a class="nav-link" href="QUẦN SHORTS">QUẦN SHORTS</a>
+                                        </li>
+                                        <li class=" nav-item lv2 ">
+                                            <a class="nav-link" href="QUẦN DÀI">QUẦN DÀI</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item lv1">
+                                    <a href="/phu-kien-unisex-pc68263.html" class="nav-link">PHỤ KIỆN UNISEX</a>
+                                    <i class="fa fa-angle-down"></i><ul class="dropdown-menu">
+                                        <li class=" nav-item lv2 ">
+                                            <a class="nav-link" href="KÍNH MẮT">KÍNH MẮT</a>
+                                        </li>
+                                        <li class=" nav-item lv2 ">
+                                            <a class="nav-link" href="DÂY LƯNG / XÍCH QUẦN">DÂY LƯNG / XÍCH QUẦN</a>
+                                        </li>
+                                        <li class=" nav-item lv2 ">
+                                            <a class="nav-link" href="TRANG SỨC">TRANG SỨC</a>
+                                        </li>
+                                        <li class=" nav-item lv2 ">
+                                            <a class="nav-link" href="TẤT NGẮN / DÀI">TẤT NGẮN / DÀI</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item lv1">
+                                    <a href="/balo-tui-cheo-vi-pc68264.html" class="nav-link">BALO - TÚI CHÉO - VÍ</a>
+                                    <i class="fa fa-angle-down"></i><ul class="dropdown-menu">
+                                        <li class=" nav-item lv2 ">
+                                            <a class="nav-link" href="VÍ THỜI TRANG">VÍ THỜI TRANG</a>
+                                        </li>
+                                        <li class=" nav-item lv2 ">
+                                            <a class="nav-link" href="BALO">BALO</a>
+                                        </li>
+                                        <li class=" nav-item lv2 ">
+                                            <a class="nav-link" href="TÚI CHÉO">TÚI CHÉO</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item lv1">
+                                    <a href="/mu-cap-mu-bucket-mu-len-pc277405.html" class="nav-link">MŨ CAP - MŨ BUCKET - MŨ LEN</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </aside><div class="wol_product">
+                    <div class="dear_title">
+                        <h2 class="title_head_ border_content">
+                            <a href="/product?show=bestseller" title="HOT ITEMS" class="tp_button">
+                                HOT ITEMS
+                            </a>
+                        </h2>
+                    </div><div class="clearfix"></div><div class="product_col_dets row">
+                        <div class="wrap_owl_topsale col-lg-12 col-md-12 col-xs-12">
+                            <div class="owl_col_details">
+                                <div class="item">
+                                    <div class="hot_sale_product">
+                                        <div class="item-img-horizontal">
+                                            <a class="product-image" href="/ao-so-mi-coccach-basic-75-p30936144.html" title="Áo sơ mi COCCACH basic #75">
+                                                <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/cce1b75127b867d066d927054ec7e8bc.jpg" alt="Áo sơ mi COCCACH basic #75">
+                                            </a>
+                                        </div><div class="item-info-horizontal">
+                                            <h3 class="item-name text2line">
+                                                <a href="/ao-so-mi-coccach-basic-75-p30936144.html" title="Áo sơ mi COCCACH basic #75">
+                                                    Áo sơ mi COCCACH basic #75
+                                                </a>
+                                            </h3><div class="price-box clearfix">
+                                                <span class="price product-price tp_product_price">290,000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><div class="item">
+                                    <div class="hot_sale_product">
+                                        <div class="item-img-horizontal">
+                                            <a class="product-image" href="/set-bo-nhung-basic-by-coccach-p30936137.html" title="Set bộ nhung basic by COCCACH">
+                                                <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210427/57b409d7d457517326936935dce737a5_thumb.jpg" alt="Set bộ nhung basic by COCCACH">
+                                            </a>
+                                        </div><div class="item-info-horizontal">
+                                            <h3 class="item-name text2line">
+                                                <a href="/set-bo-nhung-basic-by-coccach-p30936137.html" title="Set bộ nhung basic by COCCACH">
+                                                    Set bộ nhung basic by COCCACH
+                                                </a>
+                                            </h3><div class="price-box clearfix">
+                                                <span class="price product-price tp_product_price">390,000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><div class="item">
+                                    <div class="hot_sale_product">
+                                        <div class="item-img-horizontal">
+                                            <a class="product-image" href="/ao-phong-black-sabbath-cao-cap-p30936133.html" title="Áo phông Black Sabbath cao cấp">
+                                                <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210422/a9d888ae3347a0c147239b109dbdc9b8_thumb.jpg" alt="Áo phông Black Sabbath cao cấp">
+                                            </a>
+                                        </div><div class="item-info-horizontal">
+                                            <h3 class="item-name text2line">
+                                                <a href="/ao-phong-black-sabbath-cao-cap-p30936133.html" title="Áo phông Black Sabbath cao cấp">
+                                                    Áo phông Black Sabbath cao cấp
+                                                </a>
+                                            </h3><div class="price-box clearfix">
+                                                <span class="price product-price tp_product_price">290,000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><div class="item">
+                                    <div class="hot_sale_product">
+                                        <div class="item-img-horizontal">
+                                            <a class="product-image" href="/ao-phong-cao-cap-universe-p30712015.html" title="Áo phông cao cấp UNIVERSE">
+                                                <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210413/31cb8ca0a0bf76615f8ed654bd90027b_thumb.jpg" alt="Áo phông cao cấp UNIVERSE">
+                                            </a>
+                                        </div><div class="item-info-horizontal">
+                                            <h3 class="item-name text2line">
+                                                <a href="/ao-phong-cao-cap-universe-p30712015.html" title="Áo phông cao cấp UNIVERSE">
+                                                    Áo phông cao cấp UNIVERSE
+                                                </a>
+                                            </h3><div class="price-box clearfix">
+                                                <span class="price product-price tp_product_price">280,000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><div class="item">
+                                    <div class="hot_sale_product">
+                                        <div class="item-img-horizontal">
+                                            <a class="product-image" href="/ao-phong-hoa-tiet-tss548-p30712008.html" title="Áo phông hoạ tiết TSS548">
+                                                <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210413/fc24598d02dd2786b49bfdeb757c2a28_thumb.jpg" alt="Áo phông hoạ tiết TSS548">
+                                            </a>
+                                        </div><div class="item-info-horizontal">
+                                            <h3 class="item-name text2line">
+                                                <a href="/ao-phong-hoa-tiet-tss548-p30712008.html" title="Áo phông hoạ tiết TSS548">
+                                                    Áo phông hoạ tiết TSS548
+                                                </a>
+                                            </h3><div class="price-box clearfix">
+                                                <span class="price product-price tp_product_price">260,000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><div class="item">
+                                    <div class="hot_sale_product">
+                                        <div class="item-img-horizontal">
+                                            <a class="product-image" href="/ao-phong-cao-cap-care-bears-p30711998.html" title="Áo phông cao cấp Care Bears">
+                                                <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210413/f233371c2986506b73b7547cfc756f18_thumb.jpg" alt="Áo phông cao cấp Care Bears">
+                                            </a>
+                                        </div><div class="item-info-horizontal">
+                                            <h3 class="item-name text2line">
+                                                <a href="/ao-phong-cao-cap-care-bears-p30711998.html" title="Áo phông cao cấp Care Bears">
+                                                    Áo phông cao cấp Care Bears
+                                                </a>
+                                            </h3><div class="price-box clearfix">
+                                                <span class="price product-price tp_product_price">280,000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><div class="item">
+                                    <div class="hot_sale_product">
+                                        <div class="item-img-horizontal">
+                                            <a class="product-image" href="/ao-phong-cao-cap-the-club-p30711983.html" title="Áo phông cao cấp The Club">
+                                                <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210413/643f6f7036a41e9100cefbcf4b0392c2_thumb.jpg" alt="Áo phông cao cấp The Club">
+                                            </a>
+                                        </div><div class="item-info-horizontal">
+                                            <h3 class="item-name text2line">
+                                                <a href="/ao-phong-cao-cap-the-club-p30711983.html" title="Áo phông cao cấp The Club">
+                                                    Áo phông cao cấp The Club
+                                                </a>
+                                            </h3><div class="price-box clearfix">
+                                                <span class="price product-price tp_product_price">280,000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><div class="item">
+                                    <div class="hot_sale_product">
+                                        <div class="item-img-horizontal">
+                                            <a class="product-image" href="/ao-phong-broken-glass-by-coccach-p30688723.html" title="Áo phông Broken Glass by COCCACH">
+                                                <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210422/2844f3dabdf3acc6259723f9c9fc0db0.jpg" alt="Áo phông Broken Glass by COCCACH">
+                                            </a>
+                                        </div><div class="item-info-horizontal">
+                                            <h3 class="item-name text2line">
+                                                <a href="/ao-phong-broken-glass-by-coccach-p30688723.html" title="Áo phông Broken Glass by COCCACH">
+                                                    Áo phông Broken Glass by COCCACH
+                                                </a>
+                                            </h3><div class="price-box clearfix">
+                                                <span class="price product-price tp_product_price">350,000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><div class="item">
+                                    <div class="hot_sale_product">
+                                        <div class="item-img-horizontal">
+                                            <a class="product-image" href="/ao-phong-consequence-by-coccach-p30659867.html" title="Áo phông Consequence by COCCACH">
+                                                <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210416/e0cc360d32193cdc96e59eaea3a573b7_thumb.jpg" alt="Áo phông Consequence by COCCACH">
+                                            </a>
+                                        </div><div class="item-info-horizontal">
+                                            <h3 class="item-name text2line">
+                                                <a href="/ao-phong-consequence-by-coccach-p30659867.html" title="Áo phông Consequence by COCCACH">
+                                                    Áo phông Consequence by COCCACH
+                                                </a>
+                                            </h3><div class="price-box clearfix">
+                                                <span class="price product-price tp_product_price">320,000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><div class="item">
+                                    <div class="hot_sale_product">
+                                        <div class="item-img-horizontal">
+                                            <a class="product-image" href="/ao-phong-dopamine-by-coccach-p30659865.html" title="Áo phông Dopamine by COCCACH">
+                                                <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210413/17324ba8ff3050129121241db99e59a4_thumb.jpg" alt="Áo phông Dopamine by COCCACH">
+                                            </a>
+                                        </div><div class="item-info-horizontal">
+                                            <h3 class="item-name text2line">
+                                                <a href="/ao-phong-dopamine-by-coccach-p30659865.html" title="Áo phông Dopamine by COCCACH">
+                                                    Áo phông Dopamine by COCCACH
+                                                </a>
+                                            </h3><div class="price-box clearfix">
+                                                <span class="price product-price tp_product_price">320,000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><div class="item">
+                                    <div class="hot_sale_product">
+                                        <div class="item-img-horizontal">
+                                            <a class="product-image" href="/set-bo-blazer-coc-tay-by-coccach-68-p30480442.html" title="Set bộ Blazer cộc tay by COCCACH #68">
+                                                <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/7495665373561d4df0b07fbaad189efa_thumb.jpg" alt="Set bộ Blazer cộc tay by COCCACH #68">
+                                            </a>
+                                        </div><div class="item-info-horizontal">
+                                            <h3 class="item-name text2line">
+                                                <a href="/set-bo-blazer-coc-tay-by-coccach-68-p30480442.html" title="Set bộ Blazer cộc tay by COCCACH #68">
+                                                    Set bộ Blazer cộc tay by COCCACH #68
+                                                </a>
+                                            </h3><div class="price-box clearfix">
+                                                <span class="price product-price tp_product_price">450,000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><div class="item">
+                                    <div class="hot_sale_product">
+                                        <div class="item-img-horizontal">
+                                            <a class="product-image" href="/ao-phong-pllish-toys-p30465609.html" title="Áo phông PLLISH TOYS">
+                                                <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210410/1c20070d8e3c67d64ba466b866823591_thumb.jpg" alt="Áo phông PLLISH TOYS">
+                                            </a>
+                                        </div><div class="item-info-horizontal">
+                                            <h3 class="item-name text2line">
+                                                <a href="/ao-phong-pllish-toys-p30465609.html" title="Áo phông PLLISH TOYS">
+                                                    Áo phông PLLISH TOYS
+                                                </a>
+                                            </h3><div class="price-box clearfix">
+                                                <span class="price product-price tp_product_price">320,000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><div id="main_product" class="details-product col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                <div class="details">
+                    <div class="rows">
+                        <div class="product-detail-left product-images col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="row">
+                                <div class="col_large_default large-image">
+                                    <a href="" class="large_image_url checkurl" data-rel="prettyPhoto[product-gallery]">
+                                        <div style="height:400px;width:348px;" class="zoomWrapper">
+                                            <div style="height:400px;width:348px;" class="zoomWrapper">
+                                                <img id="imgZoom" class="img-responsive" alt="@Model.TenSP" src="~/Images/lazyLoading.gif" data-zoom-image="~/Images/lazyLoading.gif" style="position: absolute;">
+
+                                            </div>
+                                        </div>
+                                    </a><div class="hidden">
+                                        <div class="item">
+                                            <a href="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/cce1b75127b867d066d927054ec7e8bc.jpg" data-image="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/cce1b75127b867d066d927054ec7e8bc.jpg" data-zoom-image="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/cce1b75127b867d066d927054ec7e8bc.jpg" data-rel="prettyPhoto[product-gallery]">
+                                                <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/cce1b75127b867d066d927054ec7e8bc.jpg" alt="Áo sơ mi COCCACH basic #75">
+                                            </a>
+                                        </div><div class="item">
+                                            <a href="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/a556f72fab570be45f8bd00a0e99acc4.jpg" data-image="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/a556f72fab570be45f8bd00a0e99acc4.jpg" data-zoom-image="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/a556f72fab570be45f8bd00a0e99acc4.jpg" data-rel="prettyPhoto[product-gallery]">
+                                                <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/a556f72fab570be45f8bd00a0e99acc4.jpg" alt="Áo sơ mi COCCACH basic #75">
+                                            </a>
+                                        </div><div class="item">
+                                            <a href="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/ef6da9a81235eae30a107fe9a82b6bdf.jpg" data-image="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/ef6da9a81235eae30a107fe9a82b6bdf.jpg" data-zoom-image="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/ef6da9a81235eae30a107fe9a82b6bdf.jpg" data-rel="prettyPhoto[product-gallery]">
+                                                <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/ef6da9a81235eae30a107fe9a82b6bdf.jpg" alt="Áo sơ mi COCCACH basic #75">
+                                            </a>
+                                        </div><div class="item">
+                                            <a href="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/ca294168244f46e8ee4c509d68829dda.jpg" data-image="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/ca294168244f46e8ee4c509d68829dda.jpg" data-zoom-image="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/ca294168244f46e8ee4c509d68829dda.jpg" data-rel="prettyPhoto[product-gallery]">
+                                                <img src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/ca294168244f46e8ee4c509d68829dda.jpg" alt="Áo sơ mi COCCACH basic #75">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div><div id="gallery_02" class="col-sm-12 col-xs-12 col-lg-5 col-md-5 owl_width no-padding owl-carousel thumbnail-product thumb_product_details not-dqowl owl-loaded owl-drag" data-loop="false" data-lg-item="3" data-md-items="3" data-sm-items="3" data-xs-items="3" data-margin="10">
+                                    <div class="owl-stage-outer owl-height" style="height: 130px;">
+                                        <div class="owl-stage" style="transform: translate3d(-219px, 0px, 0px); transition: all 0.25s ease 0s; width: 659px;">
+                                            
+                                        </div>
+                                    </div>@*<div class="owl-nav"><button type="button" role="presentation" class="owl-prev"><span aria-label="Previous">‹</span></button><button type="button" role="presentation" class="owl-next disabled"><span aria-label="Next">›</span></button></div><div class="owl-dots disabled"></div>*@
+                                </div>
+                            </div>
+                        </div><div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 details-pro">
+                            <div class="title_pr"><h1 class="title-product tp_product_detail_name">@Model.TenSP</h1></div><div class="price-box price-loop-style">
+                                <span class="special-price">
+                                    <span class="price product-price tp_product_detail_price">@Model.Gia₫</span>
+                                </span><div class="taxable">
+                                    <span class="valibled">Tình trạng :</span>
+                                    <span class="status_name availabel in-stock">
+                                        @if (Model.SoLuong > 0)
+                                        {
+                                            <span>Còn hàng</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Hết hàng</span>
+                                        }
+                                    </span>
+                                </div>
+                            </div><div class="vender_">
+                                <ul>
+                                    <li>
+                                        <span>Mã sản phẩm:</span>
+                                        <span class="bold">CCS75</span>
+                                    </li>
+                                </ul>
+                            </div><div class="form-product col-sm-12 form-border">
+                                <div class="swatch colornew req clearfix" column="i4">
+                                    <div class="header">Màu sắc:</div><div data-value="Xanh pastel" class="swatch-element color">
+                                        <div class="tooltip">Trắng</div>
+                                        <input class="" id="swatch-1-276171" type="radio" data-src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/a556f72fab570be45f8bd00a0e99acc4.jpg" value="276171">
+                                        <label for="swatch-1-276171" style="background-color: white;background-size: 50px 50px;">
+                                        </label>
+                                    </div>
+                                </div><div class="swatch sizenew req clearfix" column="i5">
+                                    <div class="header">Size:</div><div data-value="M" class="swatch-element size available">
+                                        <input class="" id="swatch-0-276066" type="radio" value="276066" qtt="23" data-selid="30936148" price="290000" oldprice="0" discount="0">
+                                        <label for="swatch-0-276066">M</label>
+                                    </div><div data-value="L" class="swatch-element size available">
+                                        <input class="" id="swatch-0-276067" type="radio" value="276067" qtt="25" data-selid="30936149" price="290000" oldprice="0" discount="0">
+                                        <label for="swatch-0-276067">L</label>
+                                    </div><div data-value="XL" class="swatch-element size available">
+                                        <input class="" id="swatch-0-276068" type="radio" value="276068" qtt="11" data-selid="30936150" price="290000" oldprice="0" discount="0">
+                                        <label for="swatch-0-276068">XL</label>
+                                    </div>
+                                </div><div id="add-to-cart-form" class="form-inline">
+                                    <div class="form-group form_button_details ">
+                                        <header class="not_bg hidden">Số lượng:</header><div class="custom input_number_product custom-btn-number form-control">
+                                            <button class="btn_num minus button button_qty" onclick="var result = document.getElementById('qtym'); var qtypro = result.value; if( !isNaN( qtypro ) &amp;&amp; qtypro > 1 ) result.value--;return false;" type="button">
+                                                -
+                                            </button>
+                                            <input type="text" id="qtym" name="quantity" value="1" max="120" min="1" onkeyup="valid(this,'numbers')" onkeypress="validate(event)" class="form-control prd_quantity">
+                                            <button class="btn_num plus button button_qty" onclick="var result = document.getElementById('qtym'); var qtypro = result.value; if (!isNaN(qtypro) && result.value <=@Model.SoLuong) result.value++; return false;" type="button">
+                                                +
+                                            </button>
+                                        </div>
+                                        @*<div class="btn btn-cart button_cart_buy_enable tp_button addToCart unsel" data-original-title="Vui lòng chọn màu sắc hoặc kích cỡ" id="addToCart" ck="0" data-selid="30936144" data-psid="30936144">*@
+                                        <i class="fa fa-shopping-basket hidden"></i>&nbsp;&nbsp;
+                                        <button class="cart-item">Cho vào giỏ hàng</button>
+                                    </div>
+                                    <script>
+                                            const cart = document.querySelector(".cart-item")
+                                            cart.addEventListener('click', function () {
+
+                                                window.location.href='/ShoppingCart/AddtoCart/?id=@Model.MaSP&sl=' + document.querySelector("#qtym").value
+                                            })
+                                    $.ajax({
+                                        url: '/api/anh/?MaSP=@Model.MaSP',
+                                        dataType: "json",
+                                        method: "GET",
+                                        success: function (res) {
+                                            for (var item in res)
+                                            {
+                                                console.log(res[item].link)
+                                                $('.owl-stage-outer').append(
+                                                    `<div class="owl-item active" style="width: 105.75px; margin-right: 4px;">
+                                                <div class="item">
+                                                    <a href="#" data-image="${res[item].link}" data-zoom-image="${res[item].link}">
+                                                        <img data-img="${res[item].link}" src="${res[item].link}" alt="${res[item].TenSP}">
+                                                    </a>
+                                                </div>
+                                             </div>`)
+
+                                            }
+                                            $('#imgZoom').attr('src', res[0].link)
+                                            $('.large_image_url').click(function () {
+                                                window.location.href = res[0].link;
+                                            })
+                                            }
+
+
+                                        })
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><div class="tabss">
+                <div class="row margin-top-30 xs-margin-top-15 margin-bottom-40">
+                    <div class="col-xs-12 col-lg-12 col-sm-12 col-md-12">
+                        <div class="product-tab e-tabs">
+                            <ul class="tabs tabs-title clearfix"><li class="tab-link current" data-tab="tab-1"><h3><span>DETAILS</span></h3></li><li class="tab-link" data-tab="tab-2"><h3><span>MÔ TẢ</span></h3></li><li class="tab-link" data-tab="tab-3"><h3><span>COMMENT</span></h3></li></ul><div id="tab-1" class="tab-content current">
+                                <div class="rte">
+                                    Đang cập nhật...
+                                </div>
+                            </div><div id="tab-2" class="tab-content">
+                                <div class="rte">
+                                    Đang cập nhật...
+                                </div>
+                            </div><div id="tab-3" class="tab-content">
+                                <div class="rte">
+                                    <div class="fb-comments fb_iframe_widget fb_iframe_widget_fluid_desktop" data-href="https://coccachshop.com/ao-so-mi-coccach-basic-75-p30936144.html" data-numposts="5" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=&amp;container_width=0&amp;height=100&amp;href=https%3A%2F%2Fcoccachshop.com%2Fao-so-mi-coccach-basic-75-p30936144.html&amp;locale=vi_VN&amp;numposts=5&amp;sdk=joey&amp;version=v4.0&amp;width=550">
+                                        <span style="vertical-align: bottom; width: 550px; height: 204px;">
+                                            <div class="rte">
+                                                <textarea id="myEditor">
+  </textarea>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><section id="related-products" class="tp_product_detail_related">
+                <section class="section_product_loopp">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 dear_title">
+                            <h2 class="title_head_ border_content">
+                                <a href="san-pham-khuyen-mai" title="Sản phẩm liên quan" class="tp_button">Sản phẩm liên quan</a>
+                            </h2>
+                        </div><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 wrap_owl_product_">
+                            <div class="owl_product_ owl-carousel product-related owl-loaded owl-drag" data-nav="true" data-lg-items="3" data-md-items="3" data-height="false" data-xs-items="2" data-sm-items="3" data-margin="0">
+                                <div class="owl-stage-outer">
+                                    <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 1739px;">
+                                        <div class="owl-item active" style="width: 289.667px;">
+                                            <div class="item saler_item first pro-content" data-id="30480442">
+                                                <div class="owl_item_product">
+                                                    <div class="product-box">
+                                                        <div class="product-thumbnail">
+                                                            <a href="/set-bo-blazer-coc-tay-by-coccach-68-p30480442.html" class="image_link display_flex" data-images="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/7495665373561d4df0b07fbaad189efa_thumb.jpg" title="Set bộ Blazer cộc tay by COCCACH #68">
+                                                                <img class="img-responsive ls-is-cached lazyloaded" src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/7495665373561d4df0b07fbaad189efa_thumb.jpg" data-src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210426/7495665373561d4df0b07fbaad189efa_thumb.jpg" alt="Set bộ Blazer cộc tay by COCCACH #68" style="opacity: 1; padding-top: 0px;">
+                                                            </a><div class="product-action-grid clearfix">
+                                                                <div class="variants ">
+                                                                    <a href="javascript:void(0)" data-psid="30480442" class="button_wh_40 btn_view right-to quick-view tp_button">
+                                                                        <i class="fa fa-search"></i>
+                                                                        <span class="tooltips qv"><span>Xem nhanh</span></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div><div class="product-info">
+                                                            <h3 class="product-name">
+                                                                <a class="text2line tp_product_name" href="/set-bo-blazer-coc-tay-by-coccach-68-p30480442.html" title="Set bộ Blazer cộc tay by COCCACH #68">
+                                                                    Set bộ Blazer cộc tay by COCCACH #68
+                                                                </a>
+                                                            </h3><div class="price-box clearfix">
+                                                                <span class="price product-price tp_product_price">450,000₫</span>
+                                                            </div><div class="action__">
+                                                                <button class="cart_button_style tp_button" data-psid="30480442" data-root="-2" data-handle="/set-bo-blazer-coc-tay-by-coccach-68-p30480442.html">
+                                                                    <span class="fa fa-shopping-basket"></span>
+                                                                    Giỏ hàng
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><div class="owl-item active" style="width: 289.667px;">
+                                            <div class="item saler_item first pro-content" data-id="30446643">
+                                                <div class="owl_item_product">
+                                                    <div class="product-box">
+                                                        <div class="product-thumbnail">
+                                                            <a href="/set-bo-coccach-dai-tay-p30446643.html" class="image_link display_flex" data-images="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210427/ed73a061c4b5edf3026df7c565196f29.jpg" title="Set bộ COCCACH dài tay">
+                                                                <img class="img-responsive ls-is-cached lazyloaded" src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210427/ed73a061c4b5edf3026df7c565196f29.jpg" data-src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210427/ed73a061c4b5edf3026df7c565196f29.jpg" alt="Set bộ COCCACH dài tay" style="opacity: 1; padding-top: 0px;">
+                                                            </a><div class="product-action-grid clearfix">
+                                                                <div class="variants ">
+                                                                    <a href="javascript:void(0)" data-psid="30446643" class="button_wh_40 btn_view right-to quick-view tp_button">
+                                                                        <i class="fa fa-search"></i>
+                                                                        <span class="tooltips qv"><span>Xem nhanh</span></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div><div class="product-info">
+                                                            <h3 class="product-name">
+                                                                <a class="text2line tp_product_name" href="/set-bo-coccach-dai-tay-p30446643.html" title="Set bộ COCCACH dài tay">
+                                                                    Set bộ COCCACH dài tay
+                                                                </a>
+                                                            </h3><div class="price-box clearfix">
+                                                                <span class="price product-price tp_product_price">490,000₫</span>
+                                                            </div><div class="action__">
+                                                                <button class="cart_button_style tp_button" data-psid="30446643" data-root="-2" data-handle="/set-bo-coccach-dai-tay-p30446643.html">
+                                                                    <span class="fa fa-shopping-basket"></span>
+                                                                    Giỏ hàng
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><div class="owl-item active" style="width: 289.667px;">
+                                            <div class="item saler_item first pro-content" data-id="30128187">
+                                                <div class="owl_item_product">
+                                                    <div class="product-box">
+                                                        <div class="product-thumbnail">
+                                                            <a href="/ao-so-mi-coccach-heart-ccs62-p30128187.html" class="image_link display_flex" data-images="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210326/6e142baaa3fef5dc501974f7d3101b68_thumb.jpg" title="Áo sơ mi COCCACH Heart CCS62">
+                                                                <img class="img-responsive lazyloaded" src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210326/6e142baaa3fef5dc501974f7d3101b68_thumb.jpg" data-src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210326/6e142baaa3fef5dc501974f7d3101b68_thumb.jpg" alt="Áo sơ mi COCCACH Heart CCS62" style="opacity: 1; padding-top: 0px;">
+                                                            </a><div class="product-action-grid clearfix">
+                                                                <div class="variants ">
+                                                                    <a href="javascript:void(0)" data-psid="30128187" class="button_wh_40 btn_view right-to quick-view tp_button">
+                                                                        <i class="fa fa-search"></i>
+                                                                        <span class="tooltips qv"><span>Xem nhanh</span></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div><div class="product-info">
+                                                            <h3 class="product-name">
+                                                                <a class="text2line tp_product_name" href="/ao-so-mi-coccach-heart-ccs62-p30128187.html" title="Áo sơ mi COCCACH Heart CCS62">
+                                                                    Áo sơ mi COCCACH Heart CCS62
+                                                                </a>
+                                                            </h3><div class="price-box clearfix">
+                                                                <span class="price product-price tp_product_price">260,000₫</span>
+                                                            </div><div class="action__">
+                                                                <button class="cart_button_style tp_button" data-psid="30128187" data-root="-2" data-handle="/ao-so-mi-coccach-heart-ccs62-p30128187.html">
+                                                                    <span class="fa fa-shopping-basket"></span>
+                                                                    Giỏ hàng
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><div class="owl-item" style="width: 289.667px;">
+                                            <div class="item saler_item first pro-content" data-id="30128180">
+                                                <div class="owl_item_product">
+                                                    <div class="product-box">
+                                                        <div class="product-thumbnail">
+                                                            <a href="/ao-so-mi-coccach-basic-ccs61-p30128180.html" class="image_link display_flex" data-images="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210405/da55dbe1236bfb37e9f40fac7ca2a8cc_thumb.jpg" title="Áo sơ mi COCCACH basic CCS61">
+                                                                <img class="img-responsive lazyloaded" src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210405/da55dbe1236bfb37e9f40fac7ca2a8cc_thumb.jpg" data-src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210405/da55dbe1236bfb37e9f40fac7ca2a8cc_thumb.jpg" alt="Áo sơ mi COCCACH basic CCS61" style="opacity: 1; padding-top: 0px;">
+                                                            </a><div class="product-action-grid clearfix">
+                                                                <div class="variants ">
+                                                                    <a href="javascript:void(0)" data-psid="30128180" class="button_wh_40 btn_view right-to quick-view tp_button">
+                                                                        <i class="fa fa-search"></i>
+                                                                        <span class="tooltips qv"><span>Xem nhanh</span></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div><div class="product-info">
+                                                            <h3 class="product-name">
+                                                                <a class="text2line tp_product_name" href="/ao-so-mi-coccach-basic-ccs61-p30128180.html" title="Áo sơ mi COCCACH basic CCS61">
+                                                                    Áo sơ mi COCCACH basic CCS61
+                                                                </a>
+                                                            </h3><div class="price-box clearfix">
+                                                                <span class="price product-price tp_product_price">260,000₫</span>
+                                                            </div><div class="action__">
+                                                                <button class="cart_button_style tp_button" data-psid="30128180" data-root="-2" data-handle="/ao-so-mi-coccach-basic-ccs61-p30128180.html">
+                                                                    <span class="fa fa-shopping-basket"></span>
+                                                                    Giỏ hàng
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><div class="owl-item" style="width: 289.667px;">
+                                            <div class="item saler_item first pro-content" data-id="30128173">
+                                                <div class="owl_item_product">
+                                                    <div class="product-box">
+                                                        <div class="product-thumbnail">
+                                                            <a href="/ao-so-mi-coccach-da-bao-ccs60-p30128173.html" class="image_link display_flex" data-images="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210405/aa5f0f09d3820696a7915d561ea60f09_thumb.jpg" title="Áo sơ mi COCCACH da báo CCS60">
+                                                                <img class="img-responsive lazyloaded" src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210405/aa5f0f09d3820696a7915d561ea60f09_thumb.jpg" data-src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210405/aa5f0f09d3820696a7915d561ea60f09_thumb.jpg" alt="Áo sơ mi COCCACH da báo CCS60" style="opacity: 1; padding-top: 0px;">
+                                                            </a><div class="product-action-grid clearfix">
+                                                                <div class="variants ">
+                                                                    <a href="javascript:void(0)" data-psid="30128173" class="button_wh_40 btn_view right-to quick-view tp_button">
+                                                                        <i class="fa fa-search"></i>
+                                                                        <span class="tooltips qv"><span>Xem nhanh</span></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div><div class="product-info">
+                                                            <h3 class="product-name">
+                                                                <a class="text2line tp_product_name" href="/ao-so-mi-coccach-da-bao-ccs60-p30128173.html" title="Áo sơ mi COCCACH da báo CCS60">
+                                                                    Áo sơ mi COCCACH da báo CCS60
+                                                                </a>
+                                                            </h3><div class="price-box clearfix">
+                                                                <span class="price product-price tp_product_price">260,000₫</span>
+                                                            </div><div class="action__">
+                                                                <button class="cart_button_style tp_button" data-psid="30128173" data-root="-2" data-handle="/ao-so-mi-coccach-da-bao-ccs60-p30128173.html">
+                                                                    <span class="fa fa-shopping-basket"></span>
+                                                                    Giỏ hàng
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><div class="owl-item" style="width: 289.667px;">
+                                            <div class="item saler_item first pro-content" data-id="28501285">
+                                                <div class="owl_item_product">
+                                                    <div class="product-box">
+                                                        <div class="product-thumbnail">
+                                                            <a href="/ao-so-mi-coc-tay-leoprint-p28501285.html" class="image_link display_flex" data-images="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210312/27fa9592f0198ef094821d51e852ce34_thumb.jpg" title="Áo sơ mi cộc tay Leoprint">
+                                                                <img class="img-responsive bethua lazyloaded" src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210312/27fa9592f0198ef094821d51e852ce34_thumb.jpg" data-src="https://storage.googleapis.com/cdn.nhanh.vn/store/6602/ps/20210312/27fa9592f0198ef094821d51e852ce34_thumb.jpg" alt="Áo sơ mi cộc tay Leoprint" style="opacity: 1; padding-top: 0px;">
+                                                            </a><div class="product-action-grid clearfix">
+                                                                <div class="variants ">
+                                                                    <a href="javascript:void(0)" data-psid="28501285" class="button_wh_40 btn_view right-to quick-view tp_button">
+                                                                        <i class="fa fa-search"></i>
+                                                                        <span class="tooltips qv"><span>Xem nhanh</span></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div><div class="product-info">
+                                                            <h3 class="product-name">
+                                                                <a class="text2line tp_product_name" href="/ao-so-mi-coc-tay-leoprint-p28501285.html" title="Áo sơ mi cộc tay Leoprint">
+                                                                    Áo sơ mi cộc tay Leoprint
+                                                                </a>
+                                                            </h3><div class="price-box clearfix">
+                                                                <span class="price product-price tp_product_price">280,000₫</span>
+                                                            </div><div class="action__">
+                                                                <button class="cart_button_style tp_button" data-psid="28501285" data-root="-2" data-handle="/ao-so-mi-coc-tay-leoprint-p28501285.html">
+                                                                    <span class="fa fa-shopping-basket"></span>
+                                                                    Giỏ hàng
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><div class="owl-nav"><button type="button" role="presentation" class="owl-prev disabled"><span aria-label="Previous">‹</span></button><button type="button" role="presentation" class="owl-next"><span aria-label="Next">›</span></button></div><div class="owl-dots disabled"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </div>
+    </div>
+    </div>
+</section>

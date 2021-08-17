@@ -1,0 +1,942 @@
+﻿
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    List<string> listStyle = new List<string>();
+    listStyle.Add("~/Areas/Admin/Data/Styles/dataTables.bootstrap4.css");
+    List<string> listScript = new List<string>();
+    listScript.Add("~/Areas/Admin/Data/Scripts/jquery.dataTables.js");
+    listScript.Add("~/Areas/Admin/Data/Scripts/sparkline.js");
+    listScript.Add("~/Areas/Admin/Data/Scripts/datatable-basic.init.js");
+    ViewBag.Styles = listStyle;
+    ViewBag.Scripts = listScript;
+}
+<link href="~/Areas/Admin/Data/Styles/all.min.css" rel="stylesheet" />
+<style>
+    tbody > tr:hover {
+        background: linear-gradient(to right,#8971ea,#7f72ea,#7574ea,#6a75e9,#5f76e8) !important;
+        cursor: pointer;
+        color: white;
+    }
+
+    #voice:last-child {
+        margin: 0;
+    }
+
+    #voice:hover {
+        box-shadow: 0.4rem 0.4rem 0 #5f76e8;
+        transform: translate(-0.4rem, -0.4rem);
+    }
+
+    #voice:active {
+        box-shadow: 0 0 0 #5f76e8;
+        transform: translate(0, 0);
+    }
+
+    .push-modal, .push-modal-detail, .push-modal-input, .push-modal-delete, .push-modal-image {
+        /*            display: none;*/
+        z-index: 500;
+        position: absolute;
+        max-width: 720px;
+        width: 96%;
+        height: 400px;
+        top: -1200px;
+        left: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0 19px 38px rgba(0,0,0,0.3), 0 15px 12px rgba(0,0,0,0.22);
+        background: #fff;
+        transition-delay: 150ms;
+        transition-property: top;
+        transition-duration: 750ms;
+        transition-timing-function: cubic-bezier(0.77, 0, 0.11, 0.97);
+        border-radius: 20px;
+    }
+
+
+    .push-modal-detail, .push-modal-input, .push-modal-delete {
+        height: auto !important;
+        z-index: 100000 !important;
+    }
+
+    .main {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        background: #fff;
+        transition-property: ALL;
+        transition-duration: 750ms;
+        transition-timing-function: cubic-bezier(0.77, 0, 0.11, 0.97);
+    }
+
+    .container-pushed {
+        width: 90%;
+        height: 80%;
+        margin: 10px auto;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 5px rgba(0,0,0,0.23);
+        border-radius: 20px;
+    }
+
+    .push-modal h3, .push-modal-detail h3, .push-modal-input h3, .push-modal-delete h3 {
+        font-size: 42px;
+        margin: 20px;
+        height: 70%;
+        align-content: center;
+        text-align: center;
+    }
+
+    .push-modal-active {
+        top: 10vh;
+    }
+
+    @@keyframes animate {
+        0% {
+            width: 10.9px;
+            height: 50px;
+        }
+
+        50% {
+            width: 10.9px;
+            height: 30px;
+        }
+
+        100% {
+            width: 10.9px;
+            height: 50px;
+        }
+    }
+
+
+
+    .detail {
+        margin: 25px;
+    }
+
+        .detail > div, .input > div {
+            padding: 20px;
+        }
+
+    .modal-delete {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+
+        .modal-delete button {
+            margin: 20px;
+        }
+
+    .detail > div span:nth-child(1), .input > div span:nth-child(1) {
+        display: inline-block;
+        width: 35%;
+    }
+
+    .detail > div span:nth-child(2), .input > div span:nth-child(2) {
+        display: inline-block;
+        width: 60%;
+    }
+
+    .input > div input {
+        width: 100%;
+        border-radius: 10px;
+        height: 50px;
+        padding-left: 20px;
+    }
+
+    .detail > div button, .input > div button, .push-modal-delete button {
+        border-radius: 20px;
+        width: 20%;
+        outline: none;
+        height: 50px;
+    }
+
+    #file-input {
+        width: 95%;
+        height: 300px;
+        border: 3px dashed black;
+        text-align: center;
+        margin: 20px;
+        cursor: pointer;
+        overflow-y: scroll;
+    }
+
+        #file-input i {
+            width: 50px;
+            height: auto;
+        }
+
+        #file-input img {
+            width: auto;
+            height: 135px;
+            margin: 10px 0;
+        }
+
+    .drop-here {
+        border: 3px solid black !important;
+    }
+</style>
+<div class="main">
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb" style="margin-bottom: 20px">
+        <div class="row">
+            <div class="col-11 align-self-center">
+                <h1 class="page-title text-truncate text-dark font-weight-medium mb-1">Danh mục sản phẩm<button style="border-radius: 50%; margin-left: 20px;outline: none" class="btn-success add-button"><i class="fas fa-plus"></i></button></h1>
+
+            </div>
+            <div class="col-1 align-self-center">
+                <a id="voice" style="cursor: pointer;width: 50px;height: 50px;border:3px solid #5f76e8;border-radius: 50%;display: inline-flex;justify-content: center;align-items: center;
+  transition: all 0.2s;"><i class="fas fa-microphone" style="width: 50%; height: 50%;color: #5f76e8!important"></i></a>
+            </div>
+        </div>
+    </div>
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <!-- basic table -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Sản phẩm</h4>
+                        <h6 class="card-subtitle">
+                            <!--DataTables has most features enabled by default, so all you
+    need to do to use it with your own tables is to call the construction
+                                var data1=[]
+                                data1.push(["HaiNam","sadasd"<"ádasd","ádasdasd"<"ádasdasd"])
+    function:<code> $("#table-products").DataTable(
+                                {
+                                    data: data1
+                                });</code>. You can refer full documentation from here
+    <a href="https://datatables.net/">Datatables</a>-->
+                        </h6>
+                        <div class="table-responsive">
+                            <table id="table-products" class="table table-striped table-bordered no-wrap">
+                                <thead>
+                                    <tr>
+                                        <th data-label="mã sản phẩm">Mã sản phẩm</th>
+                                        <th data-label="tên sản phẩm">Tên sản phẩm</th>
+                                        <th data-label="mã loại">Loại</th>
+                                        <th data-label="số lượng">Số lượng</th>
+                                        <th data-label="giá">Giá</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Mã sản phẩm</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Loại</th>
+                                        <th>Số lượng</th>
+                                        <th>Giá</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- footer -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- End footer -->
+    <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Page wrapper  -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<div class="push-modal" style="z-index: 1000">
+    <h3 id="speak-to-text"></h3>
+    <div style="display: flex; justify-content: center;">
+        <a id="voice-repeat" style="cursor: pointer;width: 50px;height: 50px;border:3px solid #5f76e8;border-radius: 50%;display: flex;justify-content: center;align-items: center;
+                transition: all 0.2s;"><i class="fas fa-microphone" style="width: 50%; height: 50%;color: #5f76e8!important"></i></a>
+        <!--<div class="bar-container">
+            <div class="BarOne"></div>
+            <div class="BarTwo"></div>
+            <div class="BarThree"></div>
+            <div class="BarFour"></div>
+            <div class="BarFive"></div>
+            <div class="BarSix"></div>
+        </div>-->
+    </div>
+</div>
+<div class="push-modal-detail">
+    <div style="display: flex;justify-content: flex-end"><a class="close-detail" style="margin: 10px 20px;display: inline-block;width: 30px; height: 30px"><i class="fas fa-times" style="width: 100%;height: 100%;color: #5f76e8;cursor: pointer"></i></a></div>
+    <h3>Thông tin chi tiết sản phẩm</h3>
+    <div class="detail">
+        <div>
+            <span>Mã sản phẩm: </span>
+            <span></span>
+        </div>
+        <div>
+            <span>Tên sản phẩm: </span>
+            <span></span>
+        </div>
+        <div>
+            <span>Giá: </span>
+            <span></span>
+        </div>
+        <div>
+            <span>Khuyến mãi: </span>
+            <span></span>
+        </div>
+        <div>
+            <span>Số lượng: </span>
+            <span></span>
+        </div>
+        <div>
+            <span>Loại sản phẩm: </span>
+            <span></span>
+        </div>
+        <div>
+            <span>Ảnh sản phẩm: </span>
+            <span>
+                <a href="/Admin/Home/EditProducts" class="viewimg" target="_blank">
+                    Image
+                </a>
+            </span>
+        </div>
+        <div>
+            <button class="btn-primary edit-button">Sửa</button>
+            <button class="btn-danger delete-button">Xoá</button>
+            <button class="btn-light cancel-button">Huỷ bỏ</button>
+        </div>
+    </div>
+</div>
+<div class="push-modal-input">
+    <div style="display: flex;justify-content: flex-end"><a class="close-input" style="margin: 10px 20px;display: inline-block;width: 30px; height: 30px"><i class="fas fa-times" style="width: 100%;height: 100%;color: #5f76e8;cursor: pointer"></i></a></div>
+    <h3 class="title-input"></h3>
+    <div class="input">
+        <div>
+            <span>Mã sản phẩm: </span>
+            <span>
+                <input type="text" name="MaSP" placeholder="Mã sản phẩm" readonly />
+            </span>
+        </div>
+        <div>
+            <span>Tên sản phẩm: </span>
+            <span>
+                <input type="text" name="TenSP" placeholder="Tên sản phẩm" />
+            </span>
+        </div>
+        <div>
+            <span>Giá: </span>
+            <span>
+                <input type="text" name="Gia" placeholder="Giá" />
+            </span>
+        </div>
+        <div>
+            <span>Khuyến mãi: </span>
+            <span>
+                <input type="text" name="KhuyenMai" placeholder="Khuyến mãi" />
+            </span>
+        </div>
+        <div>
+            <span>Số lượng: </span>
+            <span>
+                <input type="text" name="SoLuong" placeholder="Số lượng" />
+            </span>
+        </div>
+        <div>
+            <span>Loại sản phẩm: </span>
+            <span>
+                <select name="LoaiSP" id="loaispid">
+                    <option value="L01">Áo</option>
+                    <option value="L02">Quần</option>
+                    <option value="L03">Phụ kiện unisex</option>
+                    <option value="L04">Balo-Túi-Ví</option>
+                    <option value="L05">MŨ CAP - MŨ BUCKET - MŨ LEN</option>
+                </select>
+            </span>
+        </div>
+        <div>
+            <span>Ảnh sản phẩm: </span>
+            <span>
+                <a href="/Admin/Home/EditProducts" class="editimg" target="_blank">
+                    Image
+                </a>
+            </span>
+        </div>
+        <div>
+            <button class="btn-primary accept-edit-button">Chấp nhận</button>
+            <button class="btn-primary update-button" style="display: none">Thêm mới</button>
+            <!--<button class="btn-danger delete-button">Xoá</button>-->
+            <button class="btn-light cancel-button-input">Huỷ bỏ</button>
+        </div>
+    </div>
+</div>
+<div class="push-modal-delete">
+    <div style="display: flex;justify-content: flex-end"><a class="close-delete" style="margin: 10px 20px;display: inline-block;width: 30px; height: 30px"><i class="fas fa-times" style="width: 100%;height: 100%;color: #5f76e8;cursor: pointer"></i></a></div>
+    <h3>Bạn có chắc muốn xoá ❓</h3>
+    <div class="modal-delete">
+        <button class="btn-primary accept-delete-button">Đồng ý</button>
+        <button class="btn-light cancel-button-delete">Huỷ bỏ</button>
+    </div>
+</div>
+<div class="push-modal-image" style="z-index: 1000000">
+    <input id="file" type="file" style="margin: 20px;" />
+    <div id="file-input">
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- Bootstrap tether Core JavaScript -->
+@*<script src="~/Areas/Admin/Data/Scripts/jquery.min.js"></script>*@
+<script src="~/Areas/Admin/Data/Scripts/all.min.js"></script>
+<script src="~/Areas/Admin/Data/Scripts/image.js"></script>
+<script>
+    $(document).ready(function () {
+        window.selectedImages = [];
+        $('#selectimg').click(function () {
+            $.FileDialog({
+                "accept": "image/*"
+            }).on("files.bs.filedialog", function (event) {
+                var html = "";
+                for (var a = 0; a < event.files.length; a++) {
+                    selectedImages.push(event.files[a]);
+                    html += "<img src='" + event.files[a].content + "'>";
+                }
+                document.getElementById("selected-images").innerHTML += html;
+            });
+        })
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+        let loaiSP = {}
+        let tenLoaiSP = {}
+        $.ajax({
+            url: "/api/loaiSP",
+            method: "GET",
+            contentType: "application/json",
+            success: function (reponse) {
+                for (var item in reponse) {
+                    loaiSP[reponse[item].MaLoai.trim()] = reponse[item].TenLoai
+                    tenLoaiSP[reponse[item].TenLoai]=reponse[item].MaLoai.trim()
+                }
+                
+                console.log(loaiSP)
+
+            }
+        })
+        const lenItem = $(".input").find("input").length;
+        let maxProducts;
+        const table = $('#table-products')
+        getAllProduct();
+        function getAllProduct() {
+            $.ajax({
+                url: "/api/sanpham",
+                method: "GET",
+                contentType: "application/json",
+                success: function (reponse) {
+                    const len = reponse.length
+                    let array = []
+
+                    //if (len > 0) {
+                    //    $(".dataTables_empty").css("display","none")
+                    //}
+                    console.log(reponse)
+
+                    let data = []
+                    for (var i = 0; i < len; ++i) {
+                        data.push(
+                            [
+                                reponse[i].MaSP,
+                                reponse[i].TenSP,
+                                loaiSP[reponse[i].MaLoai],
+                                reponse[i].SoLuong,
+                                reponse[i].Gia,
+                            ]
+
+                        )
+                      
+                        array.push([reponse[i].MaSP.split('SP')[1]])
+                    }
+
+                    maxProducts = Math.max(...array)
+                    console.log(data)
+                    
+                    table.DataTable({
+                        data: data,
+
+                    });
+
+                    $("tbody").on('click', 'tr', function () {
+                        let id = $(this).find('td').eq(0).text();
+                        $('.viewimg').attr("href", '/Admin/Home/EditProducts/?MaSP=' + id + '&q=view')
+                        $('.editimg').attr("href",'/Admin/Home/EditProducts/?MaSP='+id+'&q=upload')
+                        let url = `/api/sanpham/?MaSP=${id.trim()}`;
+                        console.log(url)
+                        $.ajax({
+                            url: url,
+                            method: "GET",
+                            contentType: "application/json",
+                            success: function (reponse) {
+                                console.log(reponse)
+                                //table.DataTable().draw()
+                                if (reponse != null) {
+                                    let i = 0;
+                                    for (var item in reponse) {
+                                        $('.detail').find("div").children("span:nth-child(2)").eq(i).text(reponse[item]);
+                                        i++;
+                                    }
+
+
+                                    setTimeout(function () {
+                                        $('.main').removeClass('container-pushed');
+                                        $('.push-modal-detail').removeClass('push-modal-active');
+                                        $('.main').toggleClass('container-pushed');
+                                        $('.push-modal-detail').toggleClass('push-modal-active');
+
+                                    }, 200)
+
+                                }
+
+                            }
+                        })
+                    })
+                },
+                fail: function (response) {
+
+                }
+            })
+        }
+        $('#file-input').click(function () {
+            document.querySelector("#file").click()
+        })
+        const dropArea = document.querySelector("#file-input")
+        dropArea.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            dropArea.classList.add('drop-here');
+
+        })
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.classList.remove('drop-here');
+
+        })
+        let file
+        let firstDrop = true
+        let index = 0
+        dropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            file = e.dataTransfer.files[0];
+            let fileType = file.type;
+            console.log(fileType)
+            let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
+            if (validExtensions.includes(fileType)) {
+                let fileReader = new FileReader();
+                fileReader.onload = () => {
+                    let fileURL = fileReader.result;
+                    let imgTag = `<br/>-----Ảnh ${index += 1}-----<br/><img src="${fileURL}">`
+                    if (firstDrop == true) {
+                        dropArea.innerHTML = ""
+                        firstDrop = false
+                    }
+
+                    $('#file-input').append(imgTag)
+                }
+                fileReader.readAsDataURL(file)
+            }
+        })
+        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+        const recognition = new SpeechRecognition();
+        const content = document.querySelector('#speak-to-text');
+
+        const changeEvent = new Event('change', { bubbles: true });
+        recognition.interimResults = true;
+        recognition.lang = "vi-VI";
+        recognition.continuous = false;
+        recognition.addEventListener('result', e => {
+            console.log(e);
+            const transcript = Array.from(e.results)
+                .map(result => result[0])
+                .map(result => result.transcript)
+                .join('')
+            content.textContent = transcript;
+            if (transcript.trim().toLowerCase().includes("sắp xếp theo")) {
+                const sort = transcript.split("theo ")[1];
+                if ($(`th[data-label="${sort}"]`).hasClass('sorting') == false) {
+                    if ($(`th[data-label="${sort}"]`).hasClass('sorting_asc')) {
+                        table.DataTable().order([$(`th[data-label="${sort}"]`).index(), 'desc']).draw();
+                    }
+                    else if ($(`th[data-label="${sort}"]`).hasClass('sorting_desc'))
+                        table.DataTable().order([$(`th[data-label="${sort}"]`).index(), 'asc']).draw();
+                }
+                else {
+                    table.DataTable().order([$(`th[data-label="${sort}"]`).index(), 'asc']).draw();
+                }
+            }
+            if (transcript.trim().toLowerCase().includes("tìm kiếm ")) {
+                document.querySelector('input[type="search"]').value = transcript.toLowerCase().split("kiếm ")[1];
+                table.DataTable().search(document.querySelector('input[type="search"]').value).draw();
+            }
+            if (transcript.trim().toLowerCase().includes("tất cả sản phẩm")) {
+                document.querySelector('input[type="search"]').value = '';
+                table.DataTable().search(document.querySelector('input[type="search"]').value).draw();
+            }
+            if (transcript.trim().toLowerCase().includes("xóa sản phẩm")) {
+                console.log('yes')
+                const id = transcript.split("sản phẩm ")[1]
+                let url = `/api/products/delete/${id.trim()}`
+                setTimeout(function () {
+                    $('.push-modal-detail').removeClass('push-modal-active');
+                    $('.push-modal-delete').removeClass('push-modal-active');
+                    $('.main').removeClass('container-pushed');
+                    $('.main').toggleClass('container-pushed');
+                    $('.push-modal-delete').toggleClass('push-modal-active');
+
+                }, 200)
+                $('.accept-delete-button').click(function () {
+                    $.ajax({
+                        url: url,
+                        method: "DELETE",
+                        contentType: "application/json",
+                        success: function (reponse) {
+                            console.log(reponse)
+                            window.location.href = "/admin/home/products"
+
+                        },
+                        fail: function () {
+                            console.log('err')
+
+                        }
+
+                    });
+                })
+
+            }
+            if (transcript.trim().toLowerCase().includes("sửa sản phẩm")) {
+                const id = transcript.split("sản phẩm ")[1]
+                let url = `/api/sanpham/?MaSP=${id}`
+                $('.title-input').text("Sửa sản phẩm")
+                $.ajax({
+                    url: url,
+                    method: "GET",
+                    contentType: "application/json",
+                    success: function (reponse) {
+                        console.log(reponse)
+                        console.log(reponse)
+                        if (reponse != null) {
+                            let i = 0;
+                            $('.input').find("h3").text("Sửa thông tin sản phẩm")
+                            for (var item in reponse) {
+                                console.log(reponse[item])
+                                $('.input').find("div > span:nth-child(2)").children("input").eq(i).val(reponse[item]);
+                                i++;
+                            }
+                            $('.update-button').css('display', 'none')
+                            $('.accept-edit-button').css('display', 'inline-block')
+
+                            setTimeout(function () {
+                                $('.push-modal-detail').removeClass('push-modal-active');
+                                $('.main').removeClass('container-pushed');
+                                $('.push-modal-input').removeClass('push-modal-active');
+                                $('.main').toggleClass('container-pushed');
+                                $('.push-modal-input').toggleClass('push-modal-active');
+
+                            }, 200)
+                        }
+                    },
+                    fail: function () {
+                        console.log('err')
+
+                    }
+
+                });
+            }
+            if (transcript.trim().toLowerCase().includes("thêm sản phẩm")) {
+                let index = (maxProducts + '').length;
+                var id = 'SP'
+                for (var i = 0; i < 5 - index; ++i) {
+                    id += '0'
+                }
+                id += maxProducts + 1;
+
+                $('.title-input').text("Thêm sản phẩm")
+                $('.update-button').css('display', 'inline-block')
+                $('.accept-edit-button').css('display', 'none')
+                $('.input').find("h3").text("Thêm sản phẩm")
+                $('.main').removeClass('container-pushed');
+                $('.push-modal-input').removeClass('push-modal-active');
+                $('.main').addClass('container-pushed');
+                $('.push-modal-input').addClass('push-modal-active');
+                $('.input').find("input").eq(0).val('SP000090')
+                $(".update-button").click(function () {
+                    var item = {}
+                    let url = '/api/products/post/item'
+                    for (var i = 0; i < lenItem; ++i) {
+                        item[$('.input').find("input").eq(i).attr('name')] = $('.input').find("input").eq(i).val()
+                    }
+                    console.log(JSON.stringify(item))
+                    $.ajax({
+                        url: url,
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(item),
+                        dataType: "json",
+                        success: function (reponse) {
+                            console.log(reponse)
+                            window.location.href = "/Admin/Home/Products"
+                        }
+                    })
+                })
+            }
+            if (transcript.trim().toLowerCase().includes("xem sản phẩm")) {
+                let id = transcript.split("sản phẩm ")[1];
+                let url = `/api/sanpham/?MaSP=${id}`;
+                $.ajax({
+                    url: url,
+                    method: "GET",
+                    contentType: "application/json",
+                    success: function (reponse) {
+                        console.log(reponse)
+
+                        if (reponse != null) {
+                            let i = 0;
+                            for (var item in reponse) {
+                                $('.detail').find("div").children("span:nth-child(2)").eq(i).text(reponse[item]);
+                                i++;
+                            }
+
+
+                            setTimeout(function () {
+                                $('.main').removeClass('container-pushed');
+                                $('.push-modal-detail').removeClass('push-modal-active');
+                                $('.main').toggleClass('container-pushed');
+                                $('.push-modal-detail').toggleClass('push-modal-active');
+
+                            }, 200)
+
+                        }
+
+                    },
+                    fail: function () {
+
+
+                    }
+
+                });
+            }
+        })
+        recognition.addEventListener('end', e => {
+            $('.main').removeClass('container-pushed');
+            $('.push-modal').removeClass('push-modal-active');
+            recognition.stop();
+        })
+        recognition.addEventListener('error', e => {
+            content.textContent = "Tôi chưa nghe rõ. Mời bạn nói lại."
+        })
+
+        $("#voice").click(function (e) {
+            e.preventDefault();
+            $('.main').toggleClass('container-pushed');
+            $('.push-modal').toggleClass('push-modal-active');
+            content.textContent = '';
+            recognition.start();
+        })
+        $(".close-detail").click(function (e) {
+            e.preventDefault();
+            $('.main').removeClass('container-pushed');
+            $('.push-modal-detail').removeClass('push-modal-active');
+
+        });
+        $(".cancel-button").click(function (e) {
+            e.preventDefault();
+            $('.main').removeClass('container-pushed');
+            $('.push-modal-detail').removeClass('push-modal-active');
+
+        });
+        $(".delete-button").click(function () {
+
+            let url = `/api/products/delete/${$('.detail').find("div").children("span:nth-child(2)").eq(0).text()}`
+            setTimeout(function () {
+                $('.push-modal-detail').removeClass('push-modal-active');
+                $('.push-modal-delete').removeClass('push-modal-active');
+                $('.main').removeClass('container-pushed');
+                $('.main').toggleClass('container-pushed');
+                $('.push-modal-delete').toggleClass('push-modal-active');
+
+            }, 200)
+            $('.accept-delete-button').click(function () {
+                $.ajax({
+                    url: url,
+                    method: "DELETE",
+                    contentType: "application/json",
+                    success: function (reponse) {
+                        console.log(reponse)
+                        window.location.href = "/admin/home/products"
+
+                    },
+                    fail: function () {
+                        console.log('err')
+
+                    }
+
+                });
+            })
+
+        })
+        $(".edit-button").click(function () {
+            console.log("Hello edit")
+            $(".title-input").text('Sửa thông tin sản phẩm')
+            let id = $('.detail').find("div").children("span:nth-child(2)").eq(0).text();
+            let url = `/api/sanpham/?MaSP=${id}`;
+            $.ajax({
+                url: url,
+                method: "GET",
+                contentType: "application/json",
+                success: function (reponse) {
+                    console.log(reponse)
+
+                    if (reponse != null) {
+                        let i = 0;
+                        $('.input').find("h3").text("Sửa thông tin sản phẩm")
+                        for (var item in reponse) {
+                            //{"hello":"xin chao",...,...,...}
+                            $('.input').find("div > span:nth-child(2)").children("input").eq(i).val(reponse[item]);
+                            i++;
+                            console.log(reponse[item])
+
+                        }
+                        $('.update-button').css('display', 'none')
+                        $('.accept-edit-button').css('display', 'inline-block')
+
+                        setTimeout(function () {
+                            $('.push-modal-detail').removeClass('push-modal-active');
+                            $('.main').removeClass('container-pushed');
+                            $('.push-modal-input').removeClass('push-modal-active');
+                            $('.main').toggleClass('container-pushed');
+                            $('.push-modal-input').toggleClass('push-modal-active');
+
+                        }, 200)
+
+                    }
+
+                },
+                fail: function () {
+
+                }
+
+            });
+
+        })
+        $(".close-input").click(function (e) {
+            e.preventDefault();
+            $('.main').removeClass('container-pushed');
+            $('.push-modal-input').removeClass('push-modal-active');
+            $('#file-input').empty()
+        });
+        $(".close-delete , .cancel-button-delete").click(function (e) {
+            e.preventDefault();
+            $('.main').removeClass('container-pushed');
+            $('.push-modal-delete').removeClass('push-modal-active');
+        });
+        $('#selectimg').click(function (e) {
+            e.preventDefault();
+
+           // $('.push-modal-image').addClass('push-modal-active');
+        });
+        $(".cancel-button-input").click(function (e) {
+            e.preventDefault();
+            $('.main').removeClass('container-pushed');
+            $('.push-modal-input').removeClass('push-modal-active');
+            $('#file-input').empty()
+        });
+        $(".accept-edit-button").click(function () {
+            var item = {}
+            let url = '/api/products/put/item'
+            for (var i = 0; i < lenItem; ++i) {
+                item[$('.input').find("input").eq(i).attr('name')] = $('.input').find("input").eq(i).val()
+                if ($('.input').find("input").eq(i).val() == "") {
+                    item[$('.input').find("input").eq(i).attr('name')]=null
+                }
+            }
+            item["MaLoai"] = $('#loaispid').find('option:selected').val()
+            console.log(JSON.stringify(item))
+            $.ajax({
+                url: url,
+                method: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify(item),
+                dataType: "json",
+                success: function (reponse) {
+                    console.log(reponse)
+                    window.location.href = "/Admin/Home/Products"
+                }
+            })
+        })
+        $(".add-button").click(function () {
+            let index = (maxProducts + '').length;
+            var id = 'SP'
+            for (var i = 0; i < 5 - index; ++i) {
+                id += '0'
+            }
+            $(".title-input").text('Thêm sản phẩm')
+            id += maxProducts + 1;
+            $('.editimg').attr("href", '/Admin/Home/EditProducts/?MaSP=' + id + '&q=upload')
+            $('.input').find("input").eq(0).val(id)
+            $('.update-button').css('display', 'inline-block')
+            $('.accept-edit-button').css('display', 'none')
+            $('.main').removeClass('container-pushed');
+            $('.push-modal-input').removeClass('push-modal-active');
+            $('.main').addClass('container-pushed');
+            $('.push-modal-input').addClass('push-modal-active');
+
+            $(".update-button").click(function () {
+                var item = {}
+                let url = '/api/products/post/item'
+                //item = {
+                //    "CongTyDangKy": "Pharmix Corporation1304, Garak ID Tower, 99-7, Garak-dong, Songpa-gu, Seoul Korea",
+                //    "CongTySanXuat": "Crown pharm. Co., LTD218-7, Anyang 7-Dong, Manan-Gu, Anyang-City, Kyunggi-Do Korea",
+                //    "DangBaoChe": "Viên nénfff",
+                //    "GiaKeKhai": "260VND/viên",
+                //    "HanSuDung": "36 tháng +10",
+                //    "HoatChatHamLuong": "Betamethasone  -  0,25mgd-Chlorpheniramine maleate  -  2mg",
+                //    "MaHang": "T050",
+                //    "QuyCachDongGoi": "Hộp 1 chai nhựa chứa 500 viên",
+                //    "TenHang": "Sebemin"}
+                
+                for (var i = 0; i < lenItem; ++i) {
+                    item[$('.input').find("input").eq(i).attr('name')] = $('.input').find("input").eq(i).val()
+                }
+                //?MaSP=T50&CongTyDangKy=Phad,mánd&...&...&...&...&..&...&...&...&...&...
+                console.log(JSON.stringify(item))
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(item),
+                    dataType: "json",
+                    success: function (reponse) {
+                        console.log(reponse)
+                        window.location.href = "/Admin/Home/Products"
+                    }
+                })
+            })
+        })
+    })
+
+</script>

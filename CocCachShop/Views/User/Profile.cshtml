@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="section-content col-md-12">
+        <div class="block">
+            <h1 class="section-title text-center col-md-12" style="margin: 20px 0;">
+                <a>  Thông tin cá nhân</a>
+            </h1>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-sm-2"></div>
+        <div id="formAcount" class=" col-sm-8 col-xs-12 clearfix">
+            <div class="form-group clearfix">
+                <label class="col-sm-3 control-label"> Họ tên: </label>
+                <div class="col-lg-9">
+                    <input type="text" id="fullName" name="fullName" value="" placeholder="Họ tên" class="validate[required,minSize[4],maxSize[32]] form-control input-sm">
+                </div>
+            </div>
+            <div class="form-group clearfix">
+                <label class="col-sm-3 control-label">Điện thoại:</label>
+                <div class="col-lg-9">
+                    <input type="text" id="mobile" name="mobile" value="" placeholder="Điện thoại" class="validate[required,custom[phone]] form-control input-sm">
+                </div>
+            </div>
+            <div class="form-group clearfix">
+                <label class="col-sm-3 control-label">Email:</label>
+                <div class="col-lg-9">
+                    <input type="text" id="email" name="email" value="" placeholder="Email" class="validate[required,custom[email]] form-control input-sm">
+                </div>
+            </div>
+
+            <div class="form-group clearfix">
+                <label class="col-sm-3 control-label">Địa chỉ chi tiết: </label>
+                <div class="col-lg-9">
+                    <input type="text" id="address" name="address" value="" placeholder="Địa chỉ chi tiết" class="validate[required] form-control input-sm">
+                </div>
+            </div>
+            <div class="text-center">
+                <button id="update" class="btn btn-success tp_button" style="background: black"> Cập nhật</button>
+                <a href="javascript:void(0)" class="btn btn-default btn-green tp_button">Quay lại</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        let data = []
+        $.ajax({
+            url: 'https://localhost:44375/api/getallkh',
+            method: 'GET',
+            contentType: 'application/json',// dữ liệu trả về dưới dạng Json
+            success: function (rs) {
+                console.log(rs)
+
+                for (var i = 0; i < rs.length; ++i) {
+                    //     data.push(rs[i])
+
+                    if (rs[i].IDKhach == $('#profile-id').data().id.trim()) {
+
+                        $("#fullName").val(rs[i].HoTen)
+                        $("#mobile").val(rs[i].SDT)
+                        $("#email").val(rs[i].Email)
+                        $("#address").val(rs[i].DiaChi)
+
+                        data.push(rs[i])
+                    }
+
+                }
+                console.log(data)
+            }
+
+
+        })
+        $('#update').click(function () {
+
+            const linksua = `https://localhost:44375/api/putkh/?id=${data[0].IDKhach}&username=${data[0].Username}&password=${data[0].Password}&hoten=${$("#fullName").val()}&sdt=${$("#mobile").val()}&adrr=${$("#address").val()}&email=${$("#email").val()}&gioitinh=${data[0].GioiTinh}`
+            $.ajax({
+                url: linksua,
+                method: "PUT",
+                contentType: "application/json",
+                success: function (rs) {
+                    console.log(linksua)
+                    window.location.href = "https://localhost:44375/User/Profile"
+                }
+
+            })
+        })
+
+
+
+    })
+</script>
+

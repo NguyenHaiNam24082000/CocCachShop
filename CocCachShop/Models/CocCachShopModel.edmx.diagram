@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d63f56a77a5a477f8696188607525d16" Name="Diagram1">
+        <EntityTypeShape EntityType="QuanLiBanHangModel.tAnh" Width="1.5" PointX="2.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiBanHangModel.tChatLieu" Width="1.5" PointX="5.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiBanHangModel.tDanhMucSP" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiBanHangModel.tDonHang" Width="1.5" PointX="5.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiBanHangModel.tHangSX" Width="1.5" PointX="7.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiBanHangModel.tKhachHang" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiBanHangModel.tLoaiSP" Width="1.5" PointX="4.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiBanHangModel.tMauSac" Width="1.5" PointX="0.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiBanHangModel.tNhanVien" Width="1.5" PointX="6.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiBanHangModel.tVanChuyen" Width="1.5" PointX="8.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiBanHangModel.tVideo" Width="1.5" PointX="9.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiBanHangModel.tChiTietHDB" Width="1.5" PointX="8" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiBanHangModel.tChiTietMau" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiBanHangModel.tDanhGia" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="QuanLiBanHangModel.FK_tChiTietMau_tDanhMucSP" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiBanHangModel.FK_tDanhGia_tDanhMucSP" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiBanHangModel.FK_tChiTietHDB_tDonHang" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiBanHangModel.FK_tDanhGia_tKhachHang" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiBanHangModel.FK_tChiTietMau_tMauSac" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

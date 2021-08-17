@@ -1,0 +1,173 @@
+﻿@model CocCachShop.Models.Cart
+
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="bread-crumb clearfix">
+    <span class="crumb-border"></span>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 a-left">
+                <ul class="breadcrumb">
+                    <li class="home">
+                        <a href="/Home/Index"><span>Trang chủ</span></a>
+                        <span class="mr_lr"> <i class="fa fa-angle-right"></i> </span>
+                    </li>
+                    <li>
+                        <strong><span>Giỏ hàng</span></strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container bg_white">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="page_title page__  margin-top-20 margin-bottom-20">
+                <h1 class="title_page_h1">
+                    <span>Giỏ hàng</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="main-cart-page main-container col1-layout">
+    <div class="container">
+        @if (Model == null || CocCachShop.Code.SessionHelper.GetSession() == null)
+        {
+            <div class="alert alert-warning">Giỏ hàng của bạn chưa có sản phẩm nào !</div>
+        }
+        else
+        {
+            using (Html.BeginForm("UpdateSoLuong", "ShoppingCart"))
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Tổng tiền</th>
+                            <th>Xoá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            int? total = 0;
+                            <tr>
+                                <td class="masp">@item.ShoppingProduct.MaSP</td>
+                                <td>@item.ShoppingProduct.TenSP</td>
+                                @if (@item.ShoppingProduct.KhuyenMai == null)
+                                {
+                                    total = item.SoLuong * item.ShoppingProduct.Gia;
+                                    <td class="gia">@item.ShoppingProduct.Gia</td>
+                                }
+                                else
+                                {
+                                    total = item.SoLuong * (int)item.ShoppingProduct.Gia * (100 - int.Parse(item.ShoppingProduct.KhuyenMai)) / 100;
+                                    <td class="gia">@((int)item.ShoppingProduct.Gia * (100 - int.Parse(item.ShoppingProduct.KhuyenMai)) / 100)</td>
+                                }
+
+                                <td>
+
+                                    <input type="hidden" value="@item.ShoppingProduct.MaSP" name="MaSP" />
+                                    <input data-id="@item.ShoppingProduct.MaSP" class="soluong" type="number" value="@item.SoLuong" name="Soluong" style="display: inline-block;width: 60%;border: none;text-align: center;height: 30px;" />
+                                    
+                                    
+                                </td>
+                                <td class="tong">@total</td>
+                                <td>
+                                    <a href="/ShoppingCart/RemoveCart/@item.ShoppingProduct.MaSP">Xoá</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="4">Tổng tiền:</th>
+
+                            <th class="totalmoney">@Model.TotalMoney()</th>
+                        </tr>
+                    </tfoot>
+                </table>
+                <input type="submit" value="Thanh toán" style="width: 35%;display: inline-block;" />
+            }
+        }
+        </div>
+</section>
+
+<script>
+    $('.soluong').change(function () {
+        console.log("Hello")
+        if ($('.soluong').val() == 0)
+            window.location.href = "/ShoppingCart/RemoveCart/" + $(this).data().id;
+    })
+
+    $('.thanhtoan').click(function () {
+        /*window.location.href ="/ShoppingCart/UpdateSoLuong"*/
+        @*let data = {}
+        let idKhach = `@CocCachShop.Code.SessionHelper.GetSession().Id`;
+        let len = $('tbody >tr').length
+
+        $.ajax({
+            url: "/api/cartapi",
+            method: 'GET',
+            contentType:"json",
+            success: function (res) {
+                const len = res.length
+                let array = []
+                let index = (len + '').length;
+                var id = ''
+                for (var i = 0; i < 3 - index; ++i) {
+                    id += '0'
+                }
+                id += (len + 1);
+                console.log(id)
+                $.ajax({
+                    url: '/api/cartapi/?idkhach=' + idKhach + '&tongtien=' + $('.totalmoney').text(),
+                    method: "POST",
+                    dataType: 'json',
+                    success: function (rs) {
+                        console.log('/api/cartapi/?idkhach=' + idKhach + '&tongtien=' + $('.totalmoney').text())
+                    }
+                })
+                for (var i = 0; i < len; ++i) {
+                    data["MaSP"]= $('.masp').eq(i).text()
+                        data["SoLuong"]= $('.soluong').eq(i).val()
+                            data["Gia"]= $('.gia').eq(i).text()
+                                data["TongTien"]= $('.tong').eq(i).text()
+                                    data["IdKhach"]= idKhach
+                                        data["MaDonHang"]= id
+
+
+                    $.ajax({
+                        url: '/api/Cart',
+                        method: "POST",
+                        dataType: 'json',
+                        data: JSON.stringify(data),
+                        success: function (rs) {
+                            console.log(rs)
+                        }
+                    })
+                }
+                console.log(JSON.stringify(data))
+            }*@
+        })
+
+
+
+
+        //var data = {
+        //    "MaSP": $('.masp').text(),
+        //    "SoLuong": $('.soluong').text(),
+        //    "Gia": $('.gia').text(),
+        //    "TongTien": $('.tong').text()
+        //}
+
+  /*  })*/
+</script>

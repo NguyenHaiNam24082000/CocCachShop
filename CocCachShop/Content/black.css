@@ -1,0 +1,128 @@
+.search_header .header_searchs .search-bar .input-group-btn .icon-fallback-text,
+.search-cart .top-cart-contain .mini-cart .heading-cart .mr_top,
+.dear_title .title_head_.border_content a,
+.product-action-grid .variants .button_wh_40,
+.action__ .cart_button_style,
+footer #mc-embedded-subscribe-form #subscribe,
+.wrap_owl_product_ .owl_product_.owl-carousel .owl-nav .owl-next:hover::before,
+.wrap_owl_product_ .owl_product_.owl-carousel .owl-nav .owl-prev:hover::before,
+.backtop,
+footer .footer-widget .social_right a:hover,
+.title_module.title_background,
+.product-tab .tab-link.current,
+.form-group .button_cart_buy_enable,
+.swatch .size input.active + label,
+.close-window,
+.quick_option .quantity_wanted_p .button_cart_buy_enable,
+div#thumbs_list_quickview .owl-prev::before, div#thumbs_list_quickview .owl-next::before,
+.search_header .header_searchs .search-bar .collection-selector .list_search .search_item:hover,
+.top-cart-content .actions .btn-checkout.pink,
+.top-cart-content li.item .detail-item .fa:hover,
+.aside-title-filter::before,
+.ui-slider-range.ui-corner-all.ui-widget-header,
+.page_title .title_page_h1 span::before,
+.pagination .page-item.active .page-link,
+.pagination .page-link:hover,
+.main-container .col-main .cart .btn.btn-white,
+.main-container .col-main .cart .btn-proceed-checkout,
+.dear_title .title_head_.border_content2 a::before,
+#frmIndexOrder .btn-danger
+{
+    background: #000000 !important;
+}
+footer .footer-widget .social_right a:hover,
+.swatch .size input.active + label,
+.search_header .header_searchs .search-bar .collection-selector .list_search .search_item:hover,
+.top-cart-content li.item .detail-item .fa:hover,
+.dear_title .title_head_.border_content a:hover
+{
+
+    color: #fff !important;
+}
+.form-group .button_cart_buy_enable:hover,
+.quick_option .quantity_wanted_p .button_cart_buy_enable:hover,
+.top-cart-content .actions .btn-checkout.pink:hover,
+#searchFolding a:hover,
+.main-container .col-main .cart .btn.btn-white:hover,
+.main-container .col-main .cart .btn-proceed-checkout:hover{
+    background: #fff !important;
+}
+.cart_button_style,
+.backtop,
+.form-group .button_cart_buy_enable,
+.swatch .color input.active + label,
+.thumb_product_details .owl-item .item a.active,
+.quick_option .quantity_wanted_p .button_cart_buy_enable,
+#thumblist_quickview .owl-item li.active a,
+.top-cart-content .actions .btn-checkout.pink,
+.pagination .page-item.active .page-link,
+.pagination .page-link:hover,
+.filter-item--check-box input:checked + .fa::before, .filter-item--check-box input + span::before,
+.main-container .col-main .cart .btn.btn-white,
+.main-container .col-main .cart .btn-proceed-checkout
+{
+    border-color: #000000 !important;
+}
+footer .copyright a, footer .copyright b,
+.menu_ .title_menu .nav_button .fa,
+.list_menu_header .ul_menu .nav_item:hover > a, .list_menu_header .ul_menu .nav_item:focus > a,
+.list_menu_header .ul_menu .nav_item:hover > a .fa, .list_menu_header .ul_menu .nav_item:focus > a .fa,
+.nav-main .menu_hed .nav .nav-item:hover > a,
+.nav-main .menu_hed .nav .nav-item:hover > .dropdown-menu li:hover > .fa,
+.nav-main .menu_hed .nav .nav-item:hover > .dropdown-menu li:hover > a,
+.product-box .product-price,
+.dear_title .nav > li > a:focus, .dear_title .nav > li > a:hover, .dear_title .nav > li.acitve > a,
+footer .list-menu li:hover a, footer .list-menu li.li_effect:hover a,
+footer .list-menu li:hover .fa, footer .list-menu li.li_effect:hover .fa,
+.wol_product .product_col_dets .wrap_owl_topsale .owl_col_details .item .hot_sale_product .item-info-horizontal .price-box .product-price,
+.details-product .details-pro .product-price,
+.form-group .button_cart_buy_enable:hover,
+.breadcrumb li a:hover span,
+.aside-item.collection-category .nav-item:hover > a, .aside-item.collection-category .nav-item:hover em,
+.aside-item.collection-category .nav-item:hover > .fa,
+.aside-item.collection-category .nav-item:hover::before,
+.iwi .fa,
+.quick_option .quantity_wanted_p .button_cart_buy_enable:hover,
+.quickview-info .reviews_qv .nhanhvn-product-reviews-badge .nhanhvn-product-reviews-star .star-off-png::before,
+#quick-view-product .price,
+.swatch .size input + label,
+.top-cart-contain .mini-cart .price,
+.top-subtotal,
+.top-cart-content .actions .btn-checkout.pink:hover,
+.product-name:hover a,
+.private .wrap_log .log .text-color:hover,
+.filter-item:hover span label,
+.filter-item--check-box input:checked + .fa::after, .filter-item--check-box input + span::after,
+.filter-item--green :hover,
+.red,
+#searchFolding a:hover,
+#searchFolding a:hover span,
+a:hover,
+.main-container .col-main .cart .cart-tbody .item-cart div .price,
+.main-container .col-main .cart .btn.btn-white:hover,
+.main-container .col-main .cart .fot_totals .total_price .total_p .price,
+.main-container .col-main .cart .btn-proceed-checkout:hover,
+.blog-item-list:hover .blog-item-name a,
+.blog-item-name:hover a,
+.orderView > h3
+{
+    color: #000000 !important;
+}
+.widget_price_filter .ui-slider .ui-slider-handle{
+    border: 11px solid #000000 !important;
+    border-color: #000000 transparent transparent !important;
+}
+@media (max-width: 768px){
+    .search-cart .top-cart-contain .mini-cart .heading-cart .cart_num_x,
+    .level0.level-top.parent.level_ico,
+    #open-filters
+    {
+        background: #000000 !important;
+    }
+    .menu-bar.hidden-md.hidden-lg .fa{
+        color: #000000 !important;
+    }
+    .level0.level-top.parent.level_ico a:hover {
+        color: #fff !important;
+    }
+}

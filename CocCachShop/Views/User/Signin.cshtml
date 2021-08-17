@@ -1,0 +1,587 @@
+﻿@model CocCachShop.Models.SigninModel
+@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-user">
+    <div class="container">
+        <h1 class="title-user">Đăng Nhập</h1>
+        <p class="intro-user"></p>
+        <div class="social-login">
+            <a href="/user/fbsignin?redirect=/" class="fb-user" rel="nofollow">With Facebook</a>
+            <a href="/user/ggsignin" class="gplus-user" rel="nofollow">With Google+</a>
+        </div>
+        <p class="suggestions-user"></p>
+        @*<form class="validate form-register form-login" method="POST">*@
+        @using (Html.BeginForm("Signin","User",FormMethod.Post,new { @class= "validate form-register form-login" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, null, new { @class = "alert alert-danger " })
+            @*<input type="hidden" value="f622ab29cff30b86ab45667208b1754b-c8fe1d96fa002dd109c6ce0b6db6e043" name="csrf" id="csrf">*@
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.UserName, new { @class = "validate[required] form-control", @placeholder = "Tên đăng nhập hoặc email", @name = "username",@autofocus="autofocus" })
+                @*<input type="text" class="validate[required] form-control" name="username" placeholder="Tên đăng nhập hoặc email">*@
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.Password, new { @type = "password", @class = "validate[required] form-control", @placeholder = "Mật khẩu", @name = "password", @autofocus = "autofocus" })
+                @*<input type="password" class="validate[required] form-control" name="password" placeholder="Mật khẩu">*@
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn-login text-uppercase tp_button">Đăng nhập</button>
+            </div>
+            @*</form>*@
+        }
+        <div class="box-remember form-group">
+            <div class="forgot-pass">
+                <a href=@Url.Action("GetPassword", "User")>Quên mật khẩu?</a>
+            </div>
+        </div>
+        <div class="signup-now">
+            <p>
+                Bạn chưa có tài khoản?
+                <a href=@Url.Action("Signup", "User")>Đăng ký ngay!</a>
+            </p>
+        </div>
+    </div>
+        </div>
+
+<style>
+    .formError {
+        z-index: 990;
+    }
+
+        .formError .formErrorContent {
+            z-index: 991;
+        }
+
+        .formError .formErrorArrow {
+            z-index: 996;
+        }
+
+    .ui-dialog .formError {
+        z-index: 5000;
+    }
+
+        .ui-dialog .formError .formErrorContent {
+            z-index: 5001;
+        }
+
+        .ui-dialog .formError .formErrorArrow {
+            z-index: 5006;
+        }
+
+    .inputContainer {
+        position: relative;
+        float: left;
+    }
+
+    .formError {
+        position: absolute;
+        top: 300px;
+        left: 300px;
+        display: block;
+        cursor: pointer;
+        text-align: left;
+    }
+
+        .formError.inline {
+            position: relative;
+            top: 0;
+            left: 0;
+            display: inline-block;
+        }
+
+    .ajaxSubmit {
+        padding: 20px;
+        background: #55ea55;
+        border: 1px solid #999;
+        display: none;
+    }
+
+    .formError .formErrorContent {
+        width: 100%;
+        background: #ee0101;
+        position: relative;
+        color: #fff;
+        min-width: 120px;
+        font-size: 11px;
+        border: 2px solid #ddd;
+        box-shadow: 0 0 6px #000;
+        -moz-box-shadow: 0 0 6px #000;
+        -webkit-box-shadow: 0 0 6px #000;
+        -o-box-shadow: 0 0 6px #000;
+        padding: 4px 10px;
+        border-radius: 6px;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        -o-border-radius: 6px;
+    }
+
+    .formError.inline .formErrorContent {
+        box-shadow: none;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        -o-box-shadow: none;
+        border: none;
+        border-radius: 0;
+        -moz-border-radius: 0;
+        -webkit-border-radius: 0;
+        -o-border-radius: 0;
+    }
+
+    .greenPopup .formErrorContent {
+        background: #33be40;
+    }
+
+    .blackPopup .formErrorContent {
+        background: #393939;
+        color: #fff;
+    }
+
+    .formError .formErrorArrow {
+        width: 15px;
+        margin: -2px 0 0 13px;
+        position: relative;
+    }
+
+    body[dir="rtl"] .formError .formErrorArrow,
+    body.rtl .formError .formErrorArrow {
+        margin: -2px 13px 0 0;
+    }
+
+    .formError .formErrorArrowBottom {
+        box-shadow: none;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        -o-box-shadow: none;
+        margin: 0 0 0 12px;
+        top: 2px;
+    }
+
+    .formError .formErrorArrow div {
+        border-left: 2px solid #ddd;
+        border-right: 2px solid #ddd;
+        box-shadow: 0 2px 3px #444;
+        -moz-box-shadow: 0 2px 3px #444;
+        -webkit-box-shadow: 0 2px 3px #444;
+        -o-box-shadow: 0 2px 3px #444;
+        font-size: 0px;
+        height: 1px;
+        background: #ee0101;
+        margin: 0 auto;
+        line-height: 0;
+        font-size: 0;
+        display: block;
+    }
+
+    .formError .formErrorArrowBottom div {
+        box-shadow: none;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        -o-box-shadow: none;
+    }
+
+    .greenPopup .formErrorArrow div {
+        background: #33be40;
+    }
+
+    .blackPopup .formErrorArrow div {
+        background: #393939;
+        color: #fff;
+    }
+
+    .formError .formErrorArrow .line10 {
+        width: 15px;
+        border: none;
+    }
+
+    .formError .formErrorArrow .line9 {
+        width: 13px;
+        border: none;
+    }
+
+    .formError .formErrorArrow .line8 {
+        width: 11px;
+    }
+
+    .formError .formErrorArrow .line7 {
+        width: 9px;
+    }
+
+    .formError .formErrorArrow .line6 {
+        width: 7px;
+    }
+
+    .formError .formErrorArrow .line5 {
+        width: 5px;
+    }
+
+    .formError .formErrorArrow .line4 {
+        width: 3px;
+    }
+
+    .formError .formErrorArrow .line3 {
+        width: 1px;
+        border-left: 2px solid #ddd;
+        border-right: 2px solid #ddd;
+        border-bottom: 0 solid #ddd;
+    }
+
+    .formError .formErrorArrow .line2 {
+        width: 3px;
+        border: none;
+        background: #ddd;
+    }
+
+    .formError .formErrorArrow .line1 {
+        width: 1px;
+        border: none;
+        background: #ddd;
+    }
+
+    .form-register input,
+    .inter-info,
+    .getpassword .title-user,
+    .btn-login,
+    p.suggestions-user,
+    p.intro-user {
+        font-family: Arial;
+    }
+
+    p.user-shield:before,
+    .social-login .fb-user:before,
+    .social-login .gplus-user:before {
+        font-family: FontAwesome;
+    }
+
+    .page-user {
+        font-size: 14px;
+    }
+
+    h1.title-user {
+        font-family: r0c0Bold;
+        font-size: 31px;
+        font-weight: 700;
+        color: #394a5d;
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    p.intro-user {
+        text-align: center;
+        padding: 4px 0;
+    }
+
+    .social-login {
+        text-align: center;
+    }
+
+        .social-login .fb-user,
+        .social-login .gplus-user {
+            color: #fff;
+            padding: 10px 24px;
+            display: inline-block;
+            border-radius: 18px !important;
+        }
+
+        .social-login .fb-user {
+            background: #3b5998;
+            margin-right: 11px;
+        }
+
+        .social-login .gplus-user {
+            background: #db4437;
+        }
+
+            .social-login .fb-user:before,
+            .social-login .gplus-user:before {
+                padding-right: 10px;
+                color: #fff;
+            }
+
+        .social-login .fb-user:before {
+            content: "\f09a";
+        }
+
+        .social-login .gplus-user:before {
+            content: "\f0d5";
+        }
+
+    p.suggestions-user {
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    form.form-register {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .getpassword input,
+    .form-register .form-group input[type="text"],
+    .form-register .form-group input[type="email"],
+    .form-register .form-group input[type="password"],
+    .form-register .form-group input[type="number"] {
+        font-size: 14px;
+        box-shadow: none;
+        width: 100%;
+        border-radius: 20px !important;
+        border: 1px solid rgba(181, 190, 206, 0.57);
+        margin-bottom: 20px;
+    }
+
+    .form-register .form-group input:focus {
+        border: 2px solid #394a5d;
+        box-shadow: none;
+    }
+
+    p.user-shield {
+        color: grey;
+    }
+
+        p.user-shield:before {
+            font-size: 15px;
+            padding-right: 11px;
+            content: "\f132";
+            float: left;
+        }
+
+    .form-group input[type="radio"] {
+        width: unset;
+    }
+
+    .form-group span {
+        font-size: 12px;
+        color: grey;
+        padding-left: 11px;
+    }
+
+    .getpassword #btnSubmit,
+    .btn-register {
+        width: 100%;
+        color: #fff;
+        padding: 10px;
+        outline: 0;
+        border-radius: 25px !important;
+        background: #f15f61 !important;
+        font-weight: 700;
+        border: 2px solid #394a5d;
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+    }
+
+        .btn-register:hover,
+        .btn-register:focus,
+        .getpassword #btnSubmit:hover,
+        .getpassword #btnSubmit:focus {
+            background: #394a5d !important;
+        }
+
+    .btn-login {
+        margin-top: 15px;
+        width: 100%;
+        padding: 10px;
+        color: #fff;
+        border-radius: 25px !important;
+        background: #f15f61;
+        font-weight: 700;
+        border: 2px solid #394a5d;
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+    }
+
+        .btn-login:hover,
+        .btn-login:focus {
+            color: #fff;
+            background: #394a5d;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+
+    .terms a {
+        color: #f05f62;
+    }
+
+    .box-remember {
+        margin-bottom: 15px;
+    }
+
+    div.remember-me {
+        color: grey;
+        padding: 0;
+    }
+
+        div.remember-me input[type="radio"] {
+            margin-right: 9px;
+            float: left;
+        }
+
+    .forgot-pass {
+        padding: 15px 0 0;
+        text-align: center;
+    }
+
+    div.signup-now {
+        text-align: center;
+    }
+
+    .terms {
+        margin-top: 15px;
+    }
+
+    div.signup-now a {
+        color: #f15f61 !important;
+        font-weight: 800;
+    }
+
+    .signup-now p {
+        margin-top: 10px;
+    }
+
+    .checkbox-user {
+        color: #666;
+        display: block;
+        width: 100%;
+        margin: 15px 0;
+        font-weight: 400;
+        cursor: pointer;
+    }
+
+        .checkbox-user input[type="checkbox"] {
+            float: left;
+            margin-top: 3px;
+            margin-right: 8px;
+            -webkit-appearance: none;
+            border: none;
+            width: 15px;
+            height: 15px;
+            outline: 0;
+            background: url(/tp/T0246/css/img/check.png) left center no-repeat;
+        }
+
+            .checkbox-user input[type="checkbox"]:focus {
+                border: none;
+                outline: none;
+            }
+
+            .checkbox-user input[type="checkbox"]:checked {
+                border: none !important;
+                outline: 0;
+                background: url(/tp/T0246/css/img/checked.png) left center no-repeat;
+            }
+
+    .box-remember label {
+        cursor: pointer;
+        font-weight: 400;
+    }
+
+    .box-remember input[type="checkbox"] {
+        float: left;
+        margin-top: 4px;
+        margin-right: 8px;
+        -webkit-appearance: none;
+        border: none;
+        width: 15px;
+        height: 15px;
+        outline: 0;
+        background: url(/tp/T0246/css/img/check.png) left center no-repeat;
+    }
+
+        .box-remember input[type="checkbox"]:focus {
+            border: none;
+            outline: none;
+        }
+
+        .box-remember input[type="checkbox"]:checked {
+            border: none !important;
+            outline: 0;
+            background: url(/tp/T0246/css/img/checked.png) left center no-repeat;
+        }
+
+    .getpassword #sign {
+        max-width: 500px;
+        margin: auto;
+        padding-top: 25px;
+        text-align: center;
+    }
+
+    .getpassword input {
+        outline: 0;
+        padding: 7px 20px;
+    }
+
+    .getpassword #btnSubmit {
+        height: auto;
+        display: inline-block;
+        width: auto;
+        padding: 8px 28px;
+        border-radius: 25px !important;
+        text-transform: uppercase;
+        font-size: 16px;
+        color: #fff;
+    }
+
+    .getpassword .alert {
+        font-size: 16px;
+    }
+
+    .getpassword .errors {
+        background: #fddada8a;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        color: #394a5d;
+        font-size: 16px;
+    }
+
+    .interlist {
+        min-height: 100px;
+        margin-top: 30px;
+    }
+
+    .inter-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #545454;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #545454;
+    }
+
+    .inter-info {
+        font-size: 14px;
+    }
+
+        .inter-info a {
+            display: block;
+            width: 100%;
+            clear: both;
+            margin-bottom: 15px;
+        }
+
+    @@media screen and (min-width: 1200px) {
+        .form-register .form-group {
+            width: 31% !important;
+            margin: 0 auto !important;
+        }
+    }
+
+    @@media screen and (min-width: 768px) {
+        .form-register .form-group {
+            width: 60%;
+            margin: 0 auto;
+        }
+    }
+
+    @@media screen and (max-width: 320px) {
+        .social-login .fb-user {
+            display: block;
+            margin: 0 auto;
+        }
+
+        button.gplus-user {
+            display: block;
+            margin: 15px auto 0;
+        }
+    }
+</style>

@@ -1,0 +1,142 @@
+﻿@font-face {
+    font-family: 'PoppinsVN-200';
+    src: url('../Fonts/Poppins/PoppinsVN-200.ttf') format('truetype');
+}
+
+:root {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'PoppinsVN-200';
+}
+
+body {
+}
+
+.new_text {
+    width: 100%;
+    float: left;
+    font-size: 24pt;
+    color: #0c0116;
+}
+
+.new_bt {
+    width: 18%;
+    float: left;
+    background-color: #000;
+    font-size: 14pt;
+    text-align: center;
+    color: #ffffff;
+    height: 50px;
+    margin-left: -60px;
+}
+
+.consectetur_text {
+    width: 100%;
+    float: left;
+    font-size: 14pt;
+    color: #0c0116;
+    font-weight: 400;
+    margin-left: 0px;
+    padding-bottom: 30px;
+}
+
+.collection_section_2 {
+    width: 100%;
+    float: left;
+}
+
+.about-img {
+    width: 100%;
+    float: left;
+    background-color: #ffffff;
+    height: auto;
+    margin-left: 64px;
+    box-shadow: 0px 0px 10px 0px;
+    position: relative;
+    z-index: 1;
+}
+
+.shoes-img {
+    width: 100%;
+    float: left;
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin: 0px;
+}
+
+.sport_text {
+    width: 24%;
+    text-align: center;
+    padding-top: 30px;
+    font-size: 16pt;
+    color: #0c0116;
+    border-bottom: 1px solid#000;
+    margin: 0 auto;
+}
+
+.dolar_text {
+    width: 100%;
+    float: left;
+    text-align: center;
+    color: #000;
+    font-size: 20pt;
+}
+
+.star_icon {
+    width: 25%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+    .star_icon ul {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .star_icon li {
+        float: left;
+        padding-right: 10px;
+        padding-bottom: 25px;
+    }
+
+.about-img2 {
+    width: 100%;
+    float: left;
+    background-image: url(../Images/about-img2.png);
+    height: auto;
+    box-shadow: 0px 0px 10px 0px;
+    margin-left: -50px;
+    margin-top: 74px;
+}
+
+
+.shoes_img {
+    width: 100%;
+    float: left;
+    padding-top: 30px;
+    margin-left: 15%;
+}
+
+.shoes-img2 {
+    width: 100%;
+    float: left;
+    text-align: center;
+    padding-top: 100px;
+    padding-bottom: 40px;
+    margin: 0px
+}
+
+.seemore_bt {
+    width: 32%;
+    height: 50px;
+    color: #ffffff;
+    background-color: #000;
+    color: #ffffff;
+    font-size: 16pt;
+    margin-top: 35px;
+    margin-bottom: 90px;
+}
+
+

@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLiBanHangModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tAnh">
+    <Key>
+      <PropertyRef Name="MaAnh" />
+    </Key>
+    <Property Name="MaAnh" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="MaSP" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="LinkAnh" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tChatLieu">
+    <Key>
+      <PropertyRef Name="MaCL" />
+    </Key>
+    <Property Name="MaCL" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="TenCL" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'QuanLiBanHang.dbo.tChiTietHDB' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tChiTietHDB">
+    <Key>
+      <PropertyRef Name="MaDonHang" />
+      <PropertyRef Name="MaSP" />
+    </Key>
+    <Property Name="MaDonHang" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MaSP" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SoLuong" Type="int" />
+    <Property Name="Gia" Type="int" />
+    <Property Name="TongTien" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'QuanLiBanHang.dbo.tChiTietMau' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tChiTietMau">
+    <Key>
+      <PropertyRef Name="MaMau" />
+    </Key>
+    <Property Name="MaMau" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="MaSP" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'QuanLiBanHang.dbo.tDanhGia' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tDanhGia">
+    <Key>
+      <PropertyRef Name="MaSP" />
+      <PropertyRef Name="IDKhach" />
+    </Key>
+    <Property Name="MaSP" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IDKhach" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="NoiDung" Type="nvarchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="tDanhMucSP">
+    <Key>
+      <PropertyRef Name="MaSP" />
+    </Key>
+    <Property Name="MaSP" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenSP" Type="nvarchar" MaxLength="100" />
+    <Property Name="Gia" Type="int" />
+    <Property Name="MaMau" Type="nvarchar" MaxLength="10" />
+    <Property Name="KhuyenMai" Type="nvarchar" MaxLength="50" />
+    <Property Name="LuotXem" Type="int" />
+    <Property Name="SoLuong" Type="int" />
+    <Property Name="MoTa" Type="nvarchar(max)" />
+    <Property Name="MaCL" Type="nvarchar" MaxLength="10" />
+    <Property Name="MaHangSX" Type="nvarchar" MaxLength="10" />
+    <Property Name="MaLoai" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tDonHang">
+    <Key>
+      <PropertyRef Name="MaDonHang" />
+    </Key>
+    <Property Name="MaDonHang" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IDKhach" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MaVanChuyen" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="NgayBan" Type="nvarchar" MaxLength="20" />
+    <Property Name="TongTien" Type="int" />
+    <Property Name="MaNV" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tHangSX">
+    <Key>
+      <PropertyRef Name="MaHangSX" />
+    </Key>
+    <Property Name="MaHangSX" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="TenHangSX" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tKhachHang">
+    <Key>
+      <PropertyRef Name="IDKhach" />
+    </Key>
+    <Property Name="IDKhach" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="HoTen" Type="nvarchar" MaxLength="50" />
+    <Property Name="SDT" Type="nvarchar" MaxLength="50" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="300" />
+    <Property Name="GioiTinh" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tLoaiSP">
+    <Key>
+      <PropertyRef Name="MaLoai" />
+    </Key>
+    <Property Name="MaLoai" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="TenLoai" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tMauSac">
+    <Key>
+      <PropertyRef Name="MaMau" />
+    </Key>
+    <Property Name="MaMau" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="TenMau" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tNhanVien">
+    <Key>
+      <PropertyRef Name="MaNV" />
+    </Key>
+    <Property Name="MaNV" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="HoTen" Type="nvarchar" MaxLength="50" />
+    <Property Name="GioiTinh" Type="nchar" MaxLength="10" />
+    <Property Name="SDT" Type="nchar" MaxLength="10" />
+    <Property Name="QuyenAdmin" Type="int" />
+  </EntityType>
+  <EntityType Name="tVanChuyen">
+    <Key>
+      <PropertyRef Name="MaVanChuyen" />
+    </Key>
+    <Property Name="MaVanChuyen" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="DonViVanChuyen" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tVideo">
+    <Key>
+      <PropertyRef Name="MaVideo" />
+    </Key>
+    <Property Name="MaVideo" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LinkVideo" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK_tChiTietHDB_tDonHang">
+    <End Role="tDonHang" Type="Self.tDonHang" Multiplicity="1" />
+    <End Role="tChiTietHDB" Type="Self.tChiTietHDB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tDonHang">
+        <PropertyRef Name="MaDonHang" />
+      </Principal>
+      <Dependent Role="tChiTietHDB">
+        <PropertyRef Name="MaDonHang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tChiTietMau_tDanhMucSP">
+    <End Role="tDanhMucSP" Type="Self.tDanhMucSP" Multiplicity="0..1" />
+    <End Role="tChiTietMau" Type="Self.tChiTietMau" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tDanhMucSP">
+        <PropertyRef Name="MaSP" />
+      </Principal>
+      <Dependent Role="tChiTietMau">
+        <PropertyRef Name="MaSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tChiTietMau_tMauSac">
+    <End Role="tMauSac" Type="Self.tMauSac" Multiplicity="1" />
+    <End Role="tChiTietMau" Type="Self.tChiTietMau" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tMauSac">
+        <PropertyRef Name="MaMau" />
+      </Principal>
+      <Dependent Role="tChiTietMau">
+        <PropertyRef Name="MaMau" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tDanhGia_tDanhMucSP">
+    <End Role="tDanhMucSP" Type="Self.tDanhMucSP" Multiplicity="1" />
+    <End Role="tDanhGia" Type="Self.tDanhGia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tDanhMucSP">
+        <PropertyRef Name="MaSP" />
+      </Principal>
+      <Dependent Role="tDanhGia">
+        <PropertyRef Name="MaSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tDanhGia_tKhachHang">
+    <End Role="tKhachHang" Type="Self.tKhachHang" Multiplicity="1" />
+    <End Role="tDanhGia" Type="Self.tDanhGia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tKhachHang">
+        <PropertyRef Name="IDKhach" />
+      </Principal>
+      <Dependent Role="tDanhGia">
+        <PropertyRef Name="IDKhach" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuanLiBanHangModelStoreContainer">
+    <EntitySet Name="tAnh" EntityType="Self.tAnh" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tChatLieu" EntityType="Self.tChatLieu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tDanhMucSP" EntityType="Self.tDanhMucSP" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tDonHang" EntityType="Self.tDonHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tHangSX" EntityType="Self.tHangSX" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tKhachHang" EntityType="Self.tKhachHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tLoaiSP" EntityType="Self.tLoaiSP" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tMauSac" EntityType="Self.tMauSac" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tNhanVien" EntityType="Self.tNhanVien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tVanChuyen" EntityType="Self.tVanChuyen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tVideo" EntityType="Self.tVideo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tChiTietHDB" EntityType="Self.tChiTietHDB" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tChiTietHDB].[MaDonHang] AS [MaDonHang], 
+    [tChiTietHDB].[MaSP] AS [MaSP], 
+    [tChiTietHDB].[SoLuong] AS [SoLuong], 
+    [tChiTietHDB].[Gia] AS [Gia], 
+    [tChiTietHDB].[TongTien] AS [TongTien]
+    FROM [dbo].[tChiTietHDB] AS [tChiTietHDB]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tChiTietMau" EntityType="Self.tChiTietMau" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tChiTietMau].[MaMau] AS [MaMau], 
+    [tChiTietMau].[MaSP] AS [MaSP]
+    FROM [dbo].[tChiTietMau] AS [tChiTietMau]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tDanhGia" EntityType="Self.tDanhGia" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tDanhGia].[MaSP] AS [MaSP], 
+    [tDanhGia].[IDKhach] AS [IDKhach], 
+    [tDanhGia].[NoiDung] AS [NoiDung]
+    FROM [dbo].[tDanhGia] AS [tDanhGia]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_tChiTietHDB_tDonHang" Association="Self.FK_tChiTietHDB_tDonHang">
+      <End Role="tDonHang" EntitySet="tDonHang" />
+      <End Role="tChiTietHDB" EntitySet="tChiTietHDB" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tChiTietMau_tDanhMucSP" Association="Self.FK_tChiTietMau_tDanhMucSP">
+      <End Role="tDanhMucSP" EntitySet="tDanhMucSP" />
+      <End Role="tChiTietMau" EntitySet="tChiTietMau" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tChiTietMau_tMauSac" Association="Self.FK_tChiTietMau_tMauSac">
+      <End Role="tMauSac" EntitySet="tMauSac" />
+      <End Role="tChiTietMau" EntitySet="tChiTietMau" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tDanhGia_tDanhMucSP" Association="Self.FK_tDanhGia_tDanhMucSP">
+      <End Role="tDanhMucSP" EntitySet="tDanhMucSP" />
+      <End Role="tDanhGia" EntitySet="tDanhGia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tDanhGia_tKhachHang" Association="Self.FK_tDanhGia_tKhachHang">
+      <End Role="tKhachHang" EntitySet="tKhachHang" />
+      <End Role="tDanhGia" EntitySet="tDanhGia" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

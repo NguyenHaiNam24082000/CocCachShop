@@ -1,0 +1,294 @@
+﻿@using CocCachShop.Models;
+@model List<tLoaiSP>
+
+<input type="hidden" id="storeId" value="6602">
+<div class="hidden-md hidden-lg opacity_menu"></div>
+<div class="opacity_filter"></div>
+<div class="body_opactiy"></div>
+<div id="mySidenav" class="sidenav menu_mobile hidden-md hidden-lg">
+    <div class="top_menu_mobile">
+        <a href="@Url.Action("Index", "Home")">
+            <img src="~/Images/logo.gif" alt="logo " />
+        </a>
+    </div>
+    <div class="content_memu_mb">
+        <div class="link_list_mobile">
+            <ul class="ct-mobile">
+                <li class="level0 level-top parent level_ico">
+                    <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+                </li>
+                @{
+                    foreach (var item in Model)
+                    {
+                        <li class="level0 level-top parent level_ico">
+                            <a href="@Url.Action("SanPhamTheoChuDe", "Home", new { MaLoai = item.MaLoai })">@item.TenLoai.ToUpper()</a>
+                        </li>
+                    }
+                }
+                <li class="level0 level-top parent level_ico">
+                    <a href="https://coccachshop.com/thong-tin-doanh-nghiep-nc8417.html">Thông tin Doanh nghiệp</a>
+                </li>
+                <li class="level0 level-top parent level_ico">
+                    <a href="https://coccachshop.com/blog-nc8418.html">Xu hướng</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="fot_menu_mobile">
+        <span class="head_title_menu hidden"><span>Tài khoản</span></span>
+        <div class="link_list_action">
+            <ul class="login_mobile">
+                @if (CocCachShop.Code.SessionHelper.GetSession() != null)
+                {
+                   
+                    <li class="hidden-md hidden-lg">
+                        <a href=@Url.Action("Profile", "User") title="@CocCachShop.Code.SessionHelper.GetSession().Name"><i class="fa fa-user"></i>Chào @CocCachShop.Code.SessionHelper.GetSession().Name</a>
+                    </li>
+                    <li class="hidden-md hidden-lg">
+                        <a href=@Url.Action("Signout", "User") title="Đăng ký"><i class="fa fa-user-plus"></i>Đăng xuất</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="hidden-md hidden-lg">
+                        <a href=@Url.Action("Signin", "User") title="Đăng nhập"><i class="fa fa-user"></i>Đăng nhập</a>
+                    </li>
+                    <li class="hidden-md hidden-lg">
+                        <a href=@Url.Action("Signup", "User") title="Đăng ký"><i class="fa fa-user-plus"></i>Đăng ký</a>
+                    </li>
+                }
+                <li>
+                    <a class="iWishView" href="javascript:(0);">
+                        <i class="fa fa-heart"></i>Danh sách yêu thích
+                    </a>
+                </li>
+                <li>
+                    <a href="https://coccachshop.com/he-thong-cua-hang">
+                        <i class="fab fa-youtube"></i>Youtube
+                    </a>
+                </li>
+                <li>
+                    <a href="https://coccachshop.com/tra-cuu-don-hang">
+                        <i class="fa fa-cube"></i>Theo dõi đơn hàng
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="header_top_bar hidden-xs hidden-sm tp_header">
+    <div class="container">
+        <div class="rowx">
+            <div class="col-lg-6 col-md-6 col-sm-6 hidden-xs top_content_">
+                <ul class="contact_top">
+                    <li class="li_contact">
+                        <span>
+                            <span class="ti ti-headphone-alt"></span>
+                            Hotline:
+                            <a href="tel:093 411 81 56">
+                                093 411 81 56
+                            </a>
+                        </span>
+                    </li>
+                    <li class="li_contact">
+                        <span>
+                            <span class="ti ti-email"></span> Email:
+                            <a href="mailto:coccachshop@gmail.com">
+                                coccachshop@gmail.com
+                            </a>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 hidden-xs top_content_">
+                <ul class="contact_top right">
+                    <li class="li_contact li_maps_header">
+                        <span>
+                            <span class="ti ti-youtube"></span>
+                            <a href="https://coccachshop.com/he-thong-cua-hang">
+                                Youtube
+                            </a>
+                        </span>
+                    </li>
+                    <li class="li_contact">
+                        <span>
+                            <span class="ti ti-package"></span>
+                            <a href="https://coccachshop.com/tra-cuu-don-hang">
+                                Theo dõi đơn hàng của bạn
+                            </a>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap_header_top tp_header">
+    <div class="header_top">
+        <div class="topbar_wrap">
+            <div class="container">
+                <div class="">
+                    <div class="head_content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="menu-bar hidden-md hidden-lg">
+                                <i class="fa fa-bars"></i>
+                            </div>
+                            <div class="logo_top col-lg-3 col-md-3">
+                                <a href="@Url.Action("Index","Home")" class="logo-wrapper ">
+                                    <img src="~/Images/logo.gif" alt="COCCACH UNDERCLUB">
+                                </a>
+                            </div>
+                            <div class="search_header col-sm-12 hidden-xs col-lg-6 col-md-6">
+                                <div class="header_searchs">
+                                    <form id="search" class="input-group search-bar" action="@Url.Action("KetQuaTimKiem","TimKiem")" method="post" role="search">
+                                        <div class="collection-selector">
+                                            <div class="search_text">Chọn danh mục</div>
+                                            <div id="search_info" class="list_search" style="display: none;">
+                                                <div class="search_item" cid="68136">ÁO</div>
+                                                <div class="search_item" cid="68132">QUẦN</div>
+                                                <div class="search_item" cid="68263">PHỤ KIỆN UNISEX</div>
+                                                <div class="search_item" cid="68264">BALO - TÚI CHÉO - VÍ</div>
+                                                <div class="search_item" cid="277405">MŨ CAP - MŨ BUCKET - MŨ LEN</div>
+                                                <div class="liner_search"></div>
+                                                <div class="search_item active" cid="0">Tất cả</div>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="categoryId">
+                                        <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input type="search" name="q" value="" placeholder="Tìm kiếm sản phẩm... " class="input-group-field st-default-search-input search-text ui-autocomplete-input" autocomplete="off" required="">
+                                        <span class="input-group-btn">
+                                            <a class="btn icon-fallback-text tp_button">Tìm kiếm</a>
+                                        </span>
+                                        <div id="searchFolding"></div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="header_top_cart col-lg-3 col-md-3 col-sm-4">
+                                <div class="search-cart ">
+                                    <div class="private login_register_ hidden-sm hidden-xs">
+                                        <div class="wrap_log">
+                                            <span class="ti_login ti_ ti-user"></span>
+                                            <div class="log">
+                                                @if (CocCachShop.Code.SessionHelper.GetSession() != null)
+                                                {
+
+                                                    <a class="ww text-color" href=@Url.Action("Profile", "User") id="profile-id" data-id="@CocCachShop.Code.SessionHelper.GetSession().Id" title="@CocCachShop.Code.SessionHelper.GetSession().Name">Chào @CocCachShop.Code.SessionHelper.GetSession().Name</a>
+                                                    <a class="text-color" href=@Url.Action("Signout","User") title="Đăng xuất">Đăng xuất</a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="ww text-color" href=@Url.Action("Signup","User") title="Đăng ký">Đăng ký</a>
+                                                    <span class="or">hoặc  </span>
+                                                    <a class="text-color" href=@Url.Action("Signin","User") title="Đăng nhập">Đăng nhập</a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="top-cart-contain">
+                                        <div class="mini-cart cart_hover text-xs-center">
+                                            <div class="heading-cart">
+                                                <span class="cart_num_x hidden-lg">
+                                                    <span class="cartCount  count_item_pr">0</span>
+                                                </span>
+                                                
+                                                <a href="https://localhost:44375/ShoppingCart/ShowToCart" class="cart-icon">
+                                                    <img src="~/Images/shopping-cart.png" />
+                                                </a>
+                                                <!--<a class="mr_top tp_button" href="https://localhost:44375/ShoppingCart/ShowToCart">-->
+                                                    @*<span class="cart_num" id="cart-total">
+                                                        <span class="color_">
+                                                            <span class="cartCount  count_item_pr">
+                                                                0
+                                                            </span>
+                                                        </span>
+                                                    </span>*@
+                                                <!--</a>-->
+                                            </div>
+                                            <div class="top-cart-content">
+                                                <ul id="cart-sidebar" class="mini-products-list count_li">
+                                                    <li class="no-item">
+                                                        <p>Không có sản phẩm nào trong giỏ hàng.</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header_search_ col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-lg hidden-md hidden-sm">
+                        <div class="search_full">
+                            <form class="form_search" action="https://coccachshop.com/search" method="get" role="search">
+                                <input type="search" name="q" placeholder="Từ khóa tìm kiếm" class="input_search" autocomplete="off">
+                                <span class="input-group-btn">
+                                    <button class="btn icon-fallback-text tp_button">
+                                        <i class="icon-magnifier icons"></i>
+                                    </button>
+                                </span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="site_menu_main tp_menu">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs menu_vertical">
+                <div class="menu_ lineheight55">
+                    <div class="title_menu">
+                        <span class="nav_button"><span class="fa fa-align-left"></span></span>
+                        <span class="title_">Danh mục sản phẩm</span>
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                    <div class="list_menu_header">
+                        <ul class="ul_menu">
+                            @{
+                                foreach (var item in Model)
+                                {
+                                    <li class="nav_item lv1">
+                                        <a href="@Url.Action("SanPhamTheoChuDe","Home",new { MaLoai=item.MaLoai })" class="tp_menu_item" title="@item.TenLoai.ToUpper()">@item.TenLoai.ToUpper()</a>
+
+                                    </li>
+                                }
+                            }
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-6 hidden-sm hidden-xs menu_main_">
+                <nav class="hidden-sm hidden-xs nav-main lineheight55 nav-widths">
+                    <div class="menu_hed head_1">
+                        <ul class="nav nav_1">
+                            @{
+                                foreach (var item in Model)
+                                {
+                                    <li class="menu_hover nav-item nav-items">
+                                        <a href="@Url.Action("SanPhamTheoChuDe","Home",new { MaLoai=item.MaLoai })" class="nav-link tp_menu_item nav-link-parent">
+                                            @item.TenLoai.ToUpper()
+                                        </a>
+
+                                    </li>
+                                }
+                            }
+                            <li class="nav-item nav-items">
+                                <a href="https://coccachshop.com/end-of-season-pm106156.html" class="nav-link tp_menu_item nav-link-parent">
+                                    GIÁ ĐẶC BIỆT
+                                </a>
+                            </li>
+                            <li class="nav-item nav-items tbt-menu">
+                                <a href="https://coccachshop.com/affiliate" class="nav-link tp_menu_item nav-link-parent">
+                                    CỘNG TÁC VIÊN
+                                </a>
+                            </li>
+                            <li class="call-tbt-menu"><i class="fa fa-plus"></i></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
